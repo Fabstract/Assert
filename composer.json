@@ -1,0 +1,25 @@
+{
+  "name": "fabs/assert",
+  "type": "library",
+  "description": "Assertion for PHP",
+  "keywords": [
+    "php",
+    "assert"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ahmet Turk",
+      "email": "ahmetturk93@gmail.com",
+      "homepage": "https://github.com/fabstract"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Fabs\\Component\\Assert\\": "src"
+    }
+  },
+  "require": {
+    "php": "^7.0"
+  }
+}
