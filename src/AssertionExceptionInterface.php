@@ -4,6 +4,6 @@
 namespace Fabs\Component\Assert;
 
 
-interface AssertExceptionInterface
+interface AssertionExceptionInterface
 {
 }

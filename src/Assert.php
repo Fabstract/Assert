@@ -17,12 +17,48 @@ class Assert
         }
     }
 
+    /**
+     * @param mixed $value
+     * @param mixed $expected
+     * @param string $name
+     */
+    public static final function assertEquals($value, $expected, $name = null)
+    {
+        if ($value !== $expected) {
+            Assert::throwException($name, 'equals', 'not-equals'); // todo expectation and given should be more meaningful
+        }
+    }
+
+    /**
+     * @param mixed $value
+     * @param mixed $expected
+     * @param string $name
+     */
+    public static final function assertNotEquals($value, $expected, $name = null)
+    {
+        if ($value === $expected) {
+            Assert::throwException($name, 'not-equals', 'equals'); // todo expectation and given should be more meaningful
+        }
+    }
+
+    /**
+     * @param string $value
+     * @param string $name
+     */
+    public static final function assertClassExists($value, $name = null)
+    {
+        Assert::assertString($value, $name);
+        if (!class_exists($value)) {
+            Assert::throwException($name, 'exist', 'not exist');
+        }
+    }
+
     #region type checkers
 
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertCallable($value, $name = null)
     {
@@ -35,7 +71,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertString($value, $name = null)
     {
@@ -48,7 +84,7 @@ class Assert
     /**
      * @param $value
      * @param null $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertBoolean($value, $name = null)
     {
@@ -61,7 +97,7 @@ class Assert
     /**
      * @param int $value
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertInt($value, $name = null)
     {
@@ -74,7 +110,7 @@ class Assert
     /**
      * @param float $value
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertFloat($value, $name = null)
     {
@@ -87,7 +123,7 @@ class Assert
     /**
      * @param array $value
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertArray($value, $name = null)
     {
@@ -101,7 +137,7 @@ class Assert
      * @param mixed $value
      * @param string $type
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertType($value, $type, $name = null)
     {
@@ -113,7 +149,7 @@ class Assert
      * @param string $type
      * @param string $name
      * @param bool $use_child_class
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     private static final function assertTypePrivate($value, $type, $name, $use_child_class = false)
     {
@@ -123,7 +159,7 @@ class Assert
             $given_type = static::getType($value);
             if ($use_child_class) {
                 $exception = static::generateException($name, $type, $given_type);
-                Assert::assertTypePrivate($exception, AssertExceptionInterface::class, 'exception');
+                Assert::assertTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
             } else {
                 $exception = self::generateException($name, $type, $given_type);
             }
@@ -139,7 +175,7 @@ class Assert
      * @param string $value
      * @param bool $accept_blanks
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertNonEmptyString($value, $accept_blanks = false, $name = null)
     {
@@ -158,7 +194,7 @@ class Assert
      * @param string $value
      * @param string $regex_pattern
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function assertRegexMatches($value, $regex_pattern, $name = null)
     {
@@ -173,7 +209,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertExceptionInterface
+     * @throws AssertionExceptionInterface
      *
      */
     public static final function assertRegexPattern($value, $name = null)
@@ -202,23 +238,27 @@ class Assert
 
     #endregion
 
+    #region array operations
+    // todo
+    #endregion
+
     /**
      * @param string $name
      * @param string $expected
      * @param string $given
-     * @return AssertExceptionInterface
+     * @return AssertionExceptionInterface
      */
     protected static function generateException($name, $expected, $given)
     {
         if (!is_string($name)) {
-            $message_template = 'Variable is expected to be %s, given %s (no name was provided ).';
-            $message = sprintf($message_template, $name, $expected, $given);
+            $message_template = 'Variable is expected to be %s, given %s (no name was provided).';
+            $message = sprintf($message_template, $expected, $given);
         } else {
-            $message_template = 'Variable with name %s is expected to be %s, given %s.';
+            $message_template = 'Variable with name "%s" is expected to be %s, given %s.';
             $message = sprintf($message_template, $name, $expected, $given);
         }
 
-        return new AssertException($message);
+        return new AssertionException($message);
     }
 
     /**
@@ -246,7 +286,7 @@ class Assert
     protected static final function throwException($name, $expected, $given)
     {
         $exception = static::generateException($name, $expected, $given);
-        Assert::assertTypePrivate($exception, AssertExceptionInterface::class, 'exception');
+        Assert::assertTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
         throw $exception;
     }
 }
