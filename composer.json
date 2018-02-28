@@ -1,5 +1,5 @@
 {
-  "name": "fabs/assert",
+  "name": "fabstract/assert",
   "type": "library",
   "description": "Assertion for PHP",
   "keywords": [
