@@ -303,6 +303,7 @@ class Assert
      * @param string $name
      * @param string $expected
      * @param $given
+     * @throws AssertionExceptionInterface
      */
     protected static final function throwException($name, $expected, $given)
     {
