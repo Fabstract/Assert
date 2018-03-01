@@ -167,6 +167,27 @@ class Assert
         }
     }
 
+    /**
+     * @param mixed $value
+     * @param string[] $type_list
+     * @param string $name
+     * @throws AssertionExceptionInterface
+     */
+    private static final function isOneOfTypes($value, $type_list, $name = null)
+    {
+        Assert::isArray($type_list, 'type_list');
+
+        foreach ($type_list as $type) {
+            if ($value instanceof $type) {
+                return;
+            }
+        }
+
+        $given = static::getType($value);
+        $expected = implode(" or ", $type_list);
+        Assert::throwException($name, $expected, $given);
+    }
+
     #endregion
 
     #region string operations
