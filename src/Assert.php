@@ -10,7 +10,7 @@ class Assert
      * @param mixed $value
      * @param string $name
      */
-    public static final function assertNonNull($value, $name = null)
+    public static final function isNotNull($value, $name = null)
     {
         if ($value === null) {
             Assert::throwException($name, 'non-null', 'null');
@@ -22,7 +22,7 @@ class Assert
      * @param mixed $expected
      * @param string $name
      */
-    public static final function assertEquals($value, $expected, $name = null)
+    public static final function isEquals($value, $expected, $name = null)
     {
         if ($value !== $expected) {
             Assert::throwException($name, 'equals', 'not-equals'); // todo expectation and given should be more meaningful
@@ -34,7 +34,7 @@ class Assert
      * @param mixed $expected
      * @param string $name
      */
-    public static final function assertNotEquals($value, $expected, $name = null)
+    public static final function isNotEquals($value, $expected, $name = null)
     {
         if ($value === $expected) {
             Assert::throwException($name, 'not-equals', 'equals'); // todo expectation and given should be more meaningful
@@ -45,9 +45,9 @@ class Assert
      * @param string $value
      * @param string $name
      */
-    public static final function assertClassExists($value, $name = null)
+    public static final function isClassExists($value, $name = null)
     {
-        Assert::assertString($value, $name);
+        Assert::isString($value, $name);
         if (!class_exists($value)) {
             Assert::throwException($name, 'exist', 'not exist');
         }
@@ -60,7 +60,7 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertCallable($value, $name = null)
+    public static final function isCallable($value, $name = null)
     {
         if (!is_callable($value)) {
             $given_type = static::getType($value);
@@ -73,7 +73,7 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertString($value, $name = null)
+    public static final function isString($value, $name = null)
     {
         if (!is_string($value)) {
             $given_type = static::getType($value);
@@ -86,7 +86,7 @@ class Assert
      * @param null $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertBoolean($value, $name = null)
+    public static final function isBoolean($value, $name = null)
     {
         if (!is_bool($value)) {
             $given_type = static::getType($value);
@@ -99,7 +99,7 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertInt($value, $name = null)
+    public static final function isInt($value, $name = null)
     {
         if (is_int($value)) {
             $given_type = static::getType($value);
@@ -112,7 +112,7 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertFloat($value, $name = null)
+    public static final function isFloat($value, $name = null)
     {
         if (!is_float($value)) {
             $given_type = static::getType($value);
@@ -125,7 +125,7 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertArray($value, $name = null)
+    public static final function isArray($value, $name = null)
     {
         if (!is_array($value)) {
             $given_type = static::getType($value);
@@ -139,9 +139,9 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertType($value, $type, $name = null)
+    public static final function isType($value, $type, $name = null)
     {
-        Assert::assertTypePrivate($value, $type, $name, true);
+        Assert::isTypePrivate($value, $type, $name, true);
     }
 
     /**
@@ -151,15 +151,15 @@ class Assert
      * @param bool $use_child_class
      * @throws AssertionExceptionInterface
      */
-    private static final function assertTypePrivate($value, $type, $name, $use_child_class = false)
+    private static final function isTypePrivate($value, $type, $name, $use_child_class = false)
     {
-        Assert::assertString($type, 'type');
+        Assert::isString($type, 'type');
 
         if (!$value instanceof $type) {
             $given_type = static::getType($value);
             if ($use_child_class) {
                 $exception = static::generateException($name, $type, $given_type);
-                Assert::assertTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
+                Assert::isTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
             } else {
                 $exception = self::generateException($name, $type, $given_type);
             }
@@ -177,9 +177,9 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertNonEmptyString($value, $accept_blanks = false, $name = null)
+    public static final function isNotEmptyString($value, $accept_blanks = false, $name = null)
     {
-        Assert::assertString($value, $name);
+        Assert::isString($value, $name);
 
         if (!$accept_blanks) {
             $value = trim($value);
@@ -196,10 +196,10 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    public static final function assertRegexMatches($value, $regex_pattern, $name = null)
+    public static final function isRegexMatches($value, $regex_pattern, $name = null)
     {
-        Assert::assertString($value, $name);
-        Assert::assertRegexPattern($regex_pattern, 'regex pattern');
+        Assert::isString($value, $name);
+        Assert::isRegexPattern($regex_pattern, 'regex pattern');
 
         if (preg_match($regex_pattern, $value) !== 1) {
             Assert::throwException($name, $regex_pattern, $value);
@@ -212,7 +212,7 @@ class Assert
      * @throws AssertionExceptionInterface
      *
      */
-    public static final function assertRegexPattern($value, $name = null)
+    public static final function isRegexPattern($value, $name = null)
     {
         if (Assert::isRegex($value) !== true) {
             Assert::throwException($name, 'regex', $value);
@@ -286,7 +286,7 @@ class Assert
     protected static final function throwException($name, $expected, $given)
     {
         $exception = static::generateException($name, $expected, $given);
-        Assert::assertTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
+        Assert::isTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
         throw $exception;
     }
 }
