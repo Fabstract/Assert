@@ -173,7 +173,7 @@ class Assert
      * @param string $name
      * @throws AssertionExceptionInterface
      */
-    private static final function isOneOfTypes($value, $type_list, $name = null)
+    public static final function isOneOfTypes($value, $type_list, $name = null)
     {
         Assert::isArray($type_list, 'type_list');
 
