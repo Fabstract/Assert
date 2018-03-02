@@ -257,6 +257,15 @@ class Assert
         return $is_valid_regex_pattern;
     }
 
+    /**
+     * @param string $value
+     * @param string $name
+     */
+    public static final function isNotNullOrWhiteSpace($value, $name = null)
+    {
+        return self::isNotEmptyString($value, false, $name);
+    }
+
     #endregion
 
     #region array operations
