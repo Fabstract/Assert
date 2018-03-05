@@ -213,6 +213,20 @@ class Assert
 
     /**
      * @param string $value
+     * @param string $starts_with
+     * @param string $name
+     */
+    public static final function startsWith($value, $starts_with, $name = null)
+    {
+        Assert::isString($starts_with, 'starts with');
+
+        $escaped_starts_with = preg_quote($starts_with);
+        $regex_pattern = "/^{$escaped_starts_with}/";
+        self::isRegexMatches($value, $regex_pattern, $name);
+    }
+
+    /**
+     * @param string $value
      * @param string $regex_pattern
      * @param string $name
      * @throws AssertionExceptionInterface
@@ -263,7 +277,7 @@ class Assert
      */
     public static final function isNotNullOrWhiteSpace($value, $name = null)
     {
-        return self::isNotEmptyString($value, false, $name);
+        self::isNotEmptyString($value, false, $name);
     }
 
     #endregion
