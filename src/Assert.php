@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Fabs\Component\Assert;
-
 
 class Assert
 {
@@ -48,8 +46,9 @@ class Assert
     public static final function isClassExists($value, $name = null)
     {
         Assert::isString($value, $name);
+
         if (!class_exists($value)) {
-            Assert::throwException($name, 'exist', 'not exist');
+            Assert::throwException($name, 'existing class name', $value);
         }
     }
 
@@ -283,7 +282,62 @@ class Assert
     #endregion
 
     #region array operations
-    // todo
+
+    /**
+     * @param array $value
+     * @param string $name
+     */
+    public static final function isNotEmptyArray($value, $name = null)
+    {
+        Assert::isArray($value, $name);
+
+        if (count($value) === 0) {
+            Assert::throwException($name, 'non empty', Assert::getArrayAsString($value));
+        }
+    }
+
+    /**
+     * @param array $value
+     * @param string $type
+     * @param string $name
+     */
+    public static final function isArrayOfType($value, $type, $name = null)
+    {
+        Assert::isArray($value, $name);
+        Assert::isClassExists($type, 'type');
+
+        foreach ($value as $element) {
+            Assert::isType($element, $type, $name);
+        }
+    }
+
+    /**
+     * @param array $value
+     * @param bool $accept_empty
+     * @param string $name
+     */
+    public static final function isSequentialArray($value, $accept_empty = true, $name = null)
+    {
+        if ($accept_empty !== true) {
+            Assert::isNotEmptyArray($value, $name);
+        } else {
+            Assert::isArray($value, $name);
+        }
+
+        if (array_keys($value) !== range(0, count($value) - 1)) {
+            Assert::throwException($name, 'sequential array', Assert::getArrayAsString($value));
+        }
+    }
+
+    /**
+     * @param array $array
+     * @return string
+     */
+    private static final function getArrayAsString($array)
+    {
+        return var_export($array, true);
+    }
+
     #endregion
 
     /**
