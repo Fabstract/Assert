@@ -188,7 +188,7 @@ class Assert
             } else {
                 $exception = self::generateException($name, $type, $given_type);
             }
-            throw new $exception;
+            throw $exception;
         }
     }
 
