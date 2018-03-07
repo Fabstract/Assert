@@ -43,12 +43,38 @@ class Assert
      * @param string $value
      * @param string $name
      */
+    public static final function isTypeExists($value, $name = null)
+    {
+        Assert::isString($value, $name);
+
+        if (!class_exists($value) && !interface_exists($value)) {
+            Assert::throwException($name, 'existing type name', $value);
+        }
+    }
+
+    /**
+     * @param string $value
+     * @param string $name
+     */
     public static final function isClassExists($value, $name = null)
     {
         Assert::isString($value, $name);
 
         if (!class_exists($value)) {
             Assert::throwException($name, 'existing class name', $value);
+        }
+    }
+
+    /**
+     * @param string $value
+     * @param string $name
+     */
+    public static final function isInterfaceExists($value, $name = null)
+    {
+        Assert::isString($value, $name);
+
+        if (!interface_exists($value)) {
+            Assert::throwException($name, 'existing interface name', $value);
         }
     }
 
