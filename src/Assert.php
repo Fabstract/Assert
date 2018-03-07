@@ -379,7 +379,7 @@ class Assert
     public static final function isArrayOfType($value, $type, $name = null)
     {
         Assert::isArray($value, $name);
-        Assert::isClassExists($type, 'type');
+        Assert::isTypeExists($type, 'type');
 
         foreach ($value as $element) {
             Assert::isType($element, $type, $name);
