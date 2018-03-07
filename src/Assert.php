@@ -98,23 +98,26 @@ class Assert
     }
 
     /**
-     * @param object $object
+     * @param object|string $object_or_class_name
      * @param string $method
-     * @param string $object_name
+     * @param null $name
      * @throws AssertionExceptionInterface
      */
-    public static final function isMethodExists($object, $method, $object_name = null)
+    public static final function isMethodExists($object_or_class_name, $method, $name = null)
     {
-        Assert::isObject($object);
+        if (is_string($object_or_class_name) === true) {
+            Assert::isTypeExists($object_or_class_name);
+            $name = $object_or_class_name;
+        } elseif (is_object($object_or_class_name)) {
+            $name = get_class($object_or_class_name);
+        } else {
+            $given_type = gettype($object_or_class_name);
+            Assert::throwException($name, 'object or class name', $given_type);
+        }
+
         Assert::isString($method);
 
-        if (method_exists($object, $method) !== true) {
-            if ($object_name === null) {
-                $object_class = get_class($object_name);
-                $name = "An instance of {$object_class}";
-            } else {
-                $name = $object_name;
-            }
+        if (method_exists($object_or_class_name, $method) !== true) {
             $expected = "contain method {$method}";
             Assert::throwException($name, $expected, 'not found');
         }
