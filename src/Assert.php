@@ -90,6 +90,28 @@ class Assert
         }
     }
 
+    /**
+     * @param object $object
+     * @param string $method
+     * @param string $object_name
+     */
+    public static final function isMethodExists($object, $method, $object_name = null)
+    {
+        Assert::isObject($object);
+        Assert::isString($method);
+
+        if (method_exists($object, $method) !== true) {
+            if ($object_name === null) {
+                $object_class = get_class($object_name);
+                $name = "An instance of {$object_class}";
+            } else {
+                $name = $object_name;
+            }
+            $expected = "contain method {$method}";
+            Assert::throwException($name, $expected, 'not found');
+        }
+    }
+
     #region type checkers
 
     /**
