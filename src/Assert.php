@@ -8,6 +8,18 @@ class Assert
      * @param mixed $value
      * @param string $name
      */
+    public static final function isObject($value, $name = null)
+    {
+        if (is_object($value) !== true) {
+            $given_type = static::getType($value);
+            Assert::throwException($name, 'object', $given_type);
+        }
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $name
+     */
     public static final function isNotNull($value, $name = null)
     {
         if ($value === null) {
