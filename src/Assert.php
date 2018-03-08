@@ -291,7 +291,7 @@ class Assert
     {
         Assert::isString($starts_with, 'starts with');
 
-        $escaped_starts_with = preg_quote($starts_with);
+        $escaped_starts_with = preg_quote($starts_with, '/');
         $regex_pattern = "/^{$escaped_starts_with}/";
         self::isRegexMatches($value, $regex_pattern, $name);
     }
