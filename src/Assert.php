@@ -289,6 +289,7 @@ class Assert
      * @param string|object $value
      * @param string $parent
      * @param string $name
+     * @throws AssertionExceptionInterface
      */
     public static final function isChildOf($value, $parent, $name = null)
     {
