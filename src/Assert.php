@@ -262,6 +262,29 @@ class Assert
         Assert::throwException($name, $expected, $given);
     }
 
+    /**
+     * @param string|object $value
+     * @param string $interface
+     * @param string $name
+     * @throws AssertionExceptionInterface
+     */
+    public static final function isImplements($value, $interface, $name = null)
+    {
+        if (is_string($value)) {
+            Assert::isClassExists($value, $name);
+            $given = $value;
+        } else {
+            Assert::isObject($value, $name);
+            $given = Assert::getType($value);
+        }
+
+        Assert::isInterfaceExists($interface, 'interface');
+
+        if (is_subclass_of($value, $interface) !== true) {
+            Assert::throwException($name, $interface, $given);
+        }
+    }
+
     #endregion
 
     #region string operations
