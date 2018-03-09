@@ -307,7 +307,7 @@ class Assert
             $given = Assert::getType($value);
         }
 
-        if (is_subclass_of($value, $parent) !== true) {
+        if (is_a($value, $parent, true) !== true) {
             Assert::throwException($name, $parent, $given);
         }
     }
