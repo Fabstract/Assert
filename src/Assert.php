@@ -4,6 +4,8 @@ namespace Fabs\Component\Assert;
 
 class Assert
 {
+    #region general operations
+
     /**
      * @param mixed $value
      * @param string $name
@@ -122,6 +124,8 @@ class Assert
             Assert::throwException($name, $expected, 'not found');
         }
     }
+
+    #endregion
 
     #region type checkers
 
@@ -417,6 +421,8 @@ class Assert
 
     #endregion
 
+    #region internal
+
     /**
      * @param string $name
      * @param string $expected
@@ -465,4 +471,6 @@ class Assert
         Assert::isTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
         throw $exception;
     }
+
+    #endregion
 }
