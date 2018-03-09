@@ -285,6 +285,32 @@ class Assert
         }
     }
 
+    /**
+     * @param string|object $value
+     * @param string $parent
+     * @param string $name
+     */
+    public static final function isChildOf($value, $parent, $name = null)
+    {
+        if (is_string($value)) {
+            $given = $value;
+            if (class_exists($value)) {
+                Assert::isClassExists($parent, 'parent');
+            } elseif (interface_exists($value)) {
+                Assert::isInterfaceExists($parent, 'parent');
+            } else {
+                Assert::throwException($name, 'existing class or interface', $given);
+            }
+        } else {
+            Assert::isObject($value, $name);
+            $given = Assert::getType($value);
+        }
+
+        if (is_subclass_of($value, $parent) !== true) {
+            Assert::throwException($name, $parent, $given);
+        }
+    }
+
     #endregion
 
     #region string operations
