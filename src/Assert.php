@@ -229,15 +229,15 @@ class Assert
     {
         Assert::isString($type, 'type');
 
-        if (!$value instanceof $type) {
+        if (is_string($value)) {
+            Assert::isNotNullOrWhiteSpace($value, $name);
             $given_type = static::getType($value);
-            if ($use_child_class) {
-                $exception = static::generateException($name, $type, $given_type);
-                Assert::isTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
-            } else {
-                $exception = self::generateException($name, $type, $given_type);
+            if (is_a($value, $type, true) !== true) {
+                Assert::throwException($name, $type, $given_type, $use_child_class);
             }
-            throw $exception;
+        } elseif (!$value instanceof $type) {
+            $given_type = static::getType($value);
+            Assert::throwException($name, $type, $given_type, $use_child_class);
         }
     }
 
@@ -307,7 +307,7 @@ class Assert
             $given = Assert::getType($value);
         }
 
-        if (is_a($value, $parent, true) !== true) {
+        if (is_subclass_of($value, $parent) !== true) {
             Assert::throwException($name, $parent, $given);
         }
     }
@@ -513,12 +513,18 @@ class Assert
      * @param string $name
      * @param string $expected
      * @param $given
+     * @param bool $use_child_class
      * @throws AssertionExceptionInterface
      */
-    protected static final function throwException($name, $expected, $given)
+    protected static final function throwException($name, $expected, $given, $use_child_class = true)
     {
-        $exception = static::generateException($name, $expected, $given);
-        Assert::isTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
+        if ($use_child_class === true) {
+            $exception = static::generateException($name, $expected, $given);
+            Assert::isTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
+        } else {
+            $exception = self::generateException($name, $expected, $given);
+        }
+
         throw $exception;
     }
 
