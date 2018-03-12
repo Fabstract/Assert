@@ -15,7 +15,7 @@ class Assert
     {
         if (is_object($value) !== true) {
             $given_type = static::getType($value);
-            Assert::throwException($name, 'object', $given_type);
+            static::throwException($name, 'object', $given_type);
         }
     }
 
@@ -27,7 +27,7 @@ class Assert
     public static final function isNotNull($value, $name = null)
     {
         if ($value === null) {
-            Assert::throwException($name, 'non-null', 'null');
+            static::throwException($name, 'non-null', 'null');
         }
     }
 
@@ -40,7 +40,7 @@ class Assert
     public static final function isEquals($value, $expected, $name = null)
     {
         if ($value !== $expected) {
-            Assert::throwException($name, 'equals', 'not-equals'); // todo expectation and given should be more meaningful
+            static::throwException($name, 'equals', 'not-equals'); // todo expectation and given should be more meaningful
         }
     }
 
@@ -53,7 +53,7 @@ class Assert
     public static final function isNotEquals($value, $expected, $name = null)
     {
         if ($value === $expected) {
-            Assert::throwException($name, 'not-equals', 'equals'); // todo expectation and given should be more meaningful
+            static::throwException($name, 'not-equals', 'equals'); // todo expectation and given should be more meaningful
         }
     }
 
@@ -67,7 +67,7 @@ class Assert
         Assert::isString($value, $name);
 
         if (!class_exists($value) && !interface_exists($value)) {
-            Assert::throwException($name, 'existing type name', $value);
+            static::throwException($name, 'existing type name', $value);
         }
     }
 
@@ -81,7 +81,7 @@ class Assert
         Assert::isString($value, $name);
 
         if (!class_exists($value)) {
-            Assert::throwException($name, 'existing class name', $value);
+            static::throwException($name, 'existing class name', $value);
         }
     }
 
@@ -95,7 +95,7 @@ class Assert
         Assert::isString($value, $name);
 
         if (!interface_exists($value)) {
-            Assert::throwException($name, 'existing interface name', $value);
+            static::throwException($name, 'existing interface name', $value);
         }
     }
 
@@ -114,14 +114,14 @@ class Assert
             $name = get_class($object_or_class_name);
         } else {
             $given_type = gettype($object_or_class_name);
-            Assert::throwException($name, 'object or class name', $given_type);
+            static::throwException($name, 'object or class name', $given_type);
         }
 
         Assert::isString($method);
 
         if (method_exists($object_or_class_name, $method) !== true) {
             $expected = "contain method {$method}";
-            Assert::throwException($name, $expected, 'not found');
+            static::throwException($name, $expected, 'not found');
         }
     }
 
@@ -138,7 +138,7 @@ class Assert
     {
         if (!is_callable($value)) {
             $given_type = static::getType($value);
-            Assert::throwException($name, 'callable', $given_type);
+            static::throwException($name, 'callable', $given_type);
         }
     }
 
@@ -151,7 +151,7 @@ class Assert
     {
         if (!is_string($value)) {
             $given_type = static::getType($value);
-            Assert::throwException($name, 'string', $given_type);
+            static::throwException($name, 'string', $given_type);
         }
     }
 
@@ -164,7 +164,7 @@ class Assert
     {
         if (!is_bool($value)) {
             $given_type = static::getType($value);
-            Assert::throwException($name, 'boolean', $given_type);
+            static::throwException($name, 'boolean', $given_type);
         }
     }
 
@@ -177,7 +177,7 @@ class Assert
     {
         if (!is_int($value)) {
             $given_type = static::getType($value);
-            Assert::throwException($name, 'int', $given_type);
+            static::throwException($name, 'int', $given_type);
         }
     }
 
@@ -190,7 +190,7 @@ class Assert
     {
         if (!is_float($value)) {
             $given_type = static::getType($value);
-            Assert::throwException($name, 'float', $given_type);
+            static::throwException($name, 'float', $given_type);
         }
     }
 
@@ -203,7 +203,7 @@ class Assert
     {
         if (!is_array($value)) {
             $given_type = static::getType($value);
-            Assert::throwException($name, 'array', $given_type);
+            static::throwException($name, 'array', $given_type);
         }
     }
 
@@ -233,11 +233,11 @@ class Assert
             Assert::isNotNullOrWhiteSpace($value, $name);
             $given_type = static::getType($value);
             if (is_a($value, $type, true) !== true) {
-                Assert::throwException($name, $type, $given_type, $use_child_class);
+                static::throwException($name, $type, $given_type, $use_child_class);
             }
         } elseif (!$value instanceof $type) {
             $given_type = static::getType($value);
-            Assert::throwException($name, $type, $given_type, $use_child_class);
+            static::throwException($name, $type, $given_type, $use_child_class);
         }
     }
 
@@ -259,7 +259,7 @@ class Assert
 
         $given = static::getType($value);
         $expected = implode(" or ", $type_list);
-        Assert::throwException($name, $expected, $given);
+        static::throwException($name, $expected, $given);
     }
 
     /**
@@ -281,7 +281,7 @@ class Assert
         Assert::isInterfaceExists($interface, 'interface');
 
         if (is_subclass_of($value, $interface) !== true) {
-            Assert::throwException($name, $interface, $given);
+            static::throwException($name, $interface, $given);
         }
     }
 
@@ -300,7 +300,7 @@ class Assert
             } elseif (interface_exists($value)) {
                 Assert::isInterfaceExists($parent, 'parent');
             } else {
-                Assert::throwException($name, 'existing class or interface', $given);
+                static::throwException($name, 'existing class or interface', $given);
             }
         } else {
             Assert::isObject($value, $name);
@@ -308,7 +308,7 @@ class Assert
         }
 
         if (is_subclass_of($value, $parent) !== true) {
-            Assert::throwException($name, $parent, $given);
+            static::throwException($name, $parent, $given);
         }
     }
 
@@ -331,7 +331,7 @@ class Assert
         }
 
         if (strlen($value) === 0) {
-            Assert::throwException($name, 'non empty', $value);
+            static::throwException($name, 'non empty', $value);
         }
     }
 
@@ -362,7 +362,7 @@ class Assert
         Assert::isRegexPattern($regex_pattern, 'regex pattern');
 
         if (preg_match($regex_pattern, $value) !== 1) {
-            Assert::throwException($name, $regex_pattern, $value);
+            static::throwException($name, $regex_pattern, $value);
         }
     }
 
@@ -374,7 +374,7 @@ class Assert
     public static final function isRegexPattern($value, $name = null)
     {
         if (Assert::isRegex($value) !== true) {
-            Assert::throwException($name, 'regex', $value);
+            static::throwException($name, 'regex', $value);
         }
     }
 
@@ -420,7 +420,7 @@ class Assert
         Assert::isArray($value, $name);
 
         if (count($value) === 0) {
-            Assert::throwException($name, 'non empty', Assert::getArrayAsString($value));
+            static::throwException($name, 'non empty', Assert::getArrayAsString($value));
         }
     }
 
@@ -455,7 +455,7 @@ class Assert
         }
 
         if (array_keys($value) !== range(0, count($value) - 1)) {
-            Assert::throwException($name, 'sequential array', Assert::getArrayAsString($value));
+            static::throwException($name, 'sequential array', Assert::getArrayAsString($value));
         }
     }
 
