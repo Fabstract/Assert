@@ -175,7 +175,7 @@ class Assert
      */
     public static final function isInt($value, $name = null)
     {
-        if (is_int($value)) {
+        if (!is_int($value)) {
             $given_type = static::getType($value);
             Assert::throwException($name, 'int', $given_type);
         }
