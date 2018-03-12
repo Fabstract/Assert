@@ -157,7 +157,7 @@ class Assert
 
     /**
      * @param $value
-     * @param null $name
+     * @param string $name
      * @throws AssertionExceptionInterface
      */
     public static final function isBoolean($value, $name = null)
