@@ -476,7 +476,7 @@ class Assert
     /**
      * @param int $value
      * @param string $name
-     * @return AssertionExceptionInterface
+     * @throws AssertionExceptionInterface
      */
     public static final function isPositive($value, $name = null)
     {
