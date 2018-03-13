@@ -471,6 +471,24 @@ class Assert
 
     #endregion
 
+    #region int operations
+
+    /**
+     * @param int $value
+     * @param string $name
+     * @return AssertionExceptionInterface
+     */
+    public static final function isPositive($value, $name = null)
+    {
+        Assert::isInt($value, $name);
+
+        if ($value <= 0) {
+            static::throwException($name, 'positive', strval($value));
+        }
+    }
+
+    #endregion
+
     #region internal
 
     /**
@@ -512,7 +530,7 @@ class Assert
     /**
      * @param string $name
      * @param string $expected
-     * @param $given
+     * @param string $given
      * @param bool $use_child_class
      * @throws AssertionExceptionInterface
      */
