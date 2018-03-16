@@ -182,6 +182,21 @@ class Assert
     }
 
     /**
+     * Useful for checking if value can be used as index in arrays.
+     *
+     * @param int|string $value
+     * @param string $name
+     * @author AssertionExceptionInterface
+     */
+    public static final function isStringOrInt($value, $name = null)
+    {
+        if (!is_string($value) && !is_int($value)) {
+            $given_type = static::getType($value);
+            static::throwException($name, 'string or int', $given_type);
+        }
+    }
+
+    /**
      * @param float $value
      * @param string $name
      * @throws AssertionExceptionInterface
