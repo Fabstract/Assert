@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Fabs\Component\Assert;
+namespace Fabstract\Component\Assert;
 
 class AssertionException extends \Exception implements AssertionExceptionInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Fabs\Component\Assert;
+namespace Fabstract\Component\Assert;
 
 
 interface AssertionExceptionInterface extends \Throwable
