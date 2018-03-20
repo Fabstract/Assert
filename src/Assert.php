@@ -456,6 +456,20 @@ class Assert
     }
 
     /**
+     * @param string[] $value
+     * @param string $name
+     * @throws AssertionExceptionInterface
+     */
+    public static final function isArrayOfString($value, $name = null)
+    {
+        Assert::isArray($value, $name);
+
+        foreach ($value as $element) {
+            Assert::isString($element, $name);
+        }
+    }
+
+    /**
      * @param array $value
      * @param bool $accept_empty
      * @param string $name
