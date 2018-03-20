@@ -451,7 +451,7 @@ class Assert
         Assert::isTypeExists($type, 'type');
 
         foreach ($value as $element) {
-            Assert::isType($element, $type, $name);
+            Assert::isType($element, $type, $name); // todo assertion message is misleading
         }
     }
 
@@ -465,7 +465,7 @@ class Assert
         Assert::isArray($value, $name);
 
         foreach ($value as $element) {
-            Assert::isString($element, $name);
+            Assert::isString($element, $name); // todo assertion message is misleading
         }
     }
 
