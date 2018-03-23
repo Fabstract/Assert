@@ -125,6 +125,22 @@ class Assert
         }
     }
 
+    /**
+     * @param mixed $value
+     * @param mixed[] $allowed_value_list
+     * @param bool $type_strict
+     * @param string $name
+     * @throws AssertionExceptionInterface
+     */
+    public static final function isInArray($value, $allowed_value_list, $type_strict = false, $name = null)
+    {
+        Assert::isArray($allowed_value_list, 'allowed_value_list');
+
+        if (in_array($value, $allowed_value_list, $type_strict) !== true) {
+            static::throwException($name, 'one of allowed_value_list', 'not in allowed_value_list');
+        }
+    }
+
     #endregion
 
     #region type checkers
@@ -419,6 +435,23 @@ class Assert
     public static final function isNotNullOrWhiteSpace($value, $name = null)
     {
         self::isNotEmptyString($value, false, $name);
+    }
+
+    /**
+     * @param string $value
+     * @param string[] $allowed_string_list
+     * @param string $name
+     * @throws AssertionExceptionInterface
+     */
+    public static final function isInStringArray($value, $allowed_string_list, $name = null)
+    {
+        Assert::isString($value);
+        Assert::isArrayOfString($allowed_string_list);
+
+        if (in_array($value, $allowed_string_list, true) !== true) {
+            $excepted = explode(', or ', $allowed_string_list);
+            static::throwException($name, $excepted, $value);
+        }
     }
 
     #endregion
