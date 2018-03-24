@@ -449,7 +449,7 @@ class Assert
         Assert::isArrayOfString($allowed_string_list);
 
         if (in_array($value, $allowed_string_list, true) !== true) {
-            $excepted = explode(', or ', $allowed_string_list);
+            $excepted = implode(', or ', $allowed_string_list);
             static::throwException($name, $excepted, $value);
         }
     }
