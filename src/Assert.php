@@ -549,6 +549,20 @@ class Assert
         }
     }
 
+    /**
+     * @param int $value
+     * @param string $name
+     * @throws AssertionExceptionInterface
+     */
+    public static final function isNotNegative($value, $name = null)
+    {
+        Assert::isInt($value, $name);
+
+        if ($value < 0) {
+            static::throwException($name, 'not negative', strval($value));
+        }
+    }
+
     #endregion
 
     #region internal
