@@ -64,7 +64,7 @@ class Assert
      */
     public static final function isTypeExists($value, $name = null)
     {
-        Assert::isString($value, $name);
+        static::isString($value, $name);
 
         if (!class_exists($value) && !interface_exists($value)) {
             static::throwException($name, 'existing type name', $value);
@@ -78,7 +78,7 @@ class Assert
      */
     public static final function isClassExists($value, $name = null)
     {
-        Assert::isString($value, $name);
+        static::isString($value, $name);
 
         if (!class_exists($value)) {
             static::throwException($name, 'existing class name', $value);
@@ -92,7 +92,7 @@ class Assert
      */
     public static final function isInterfaceExists($value, $name = null)
     {
-        Assert::isString($value, $name);
+        static::isString($value, $name);
 
         if (!interface_exists($value)) {
             static::throwException($name, 'existing interface name', $value);
@@ -108,7 +108,7 @@ class Assert
     public static final function isMethodExists($object_or_class_name, $method, $name = null)
     {
         if (is_string($object_or_class_name) === true) {
-            Assert::isTypeExists($object_or_class_name);
+            static::isTypeExists($object_or_class_name);
             $name = $object_or_class_name;
         } elseif (is_object($object_or_class_name)) {
             $name = get_class($object_or_class_name);
@@ -117,7 +117,7 @@ class Assert
             static::throwException($name, 'object or class name', $given_type);
         }
 
-        Assert::isString($method);
+        static::isString($method);
 
         if (method_exists($object_or_class_name, $method) !== true) {
             $expected = "contain method {$method}";
@@ -134,7 +134,7 @@ class Assert
      */
     public static final function isInArray($value, $allowed_value_list, $type_strict = false, $name = null)
     {
-        Assert::isArray($allowed_value_list, 'allowed_value_list');
+        static::isArray($allowed_value_list, 'allowed_value_list');
 
         if (in_array($value, $allowed_value_list, $type_strict) !== true) {
             static::throwException($name, 'one of allowed_value_list', 'not in allowed_value_list');
@@ -246,7 +246,7 @@ class Assert
      */
     public static final function isType($value, $type, $name = null)
     {
-        Assert::isTypePrivate($value, $type, $name, true);
+        static::isTypePrivate($value, $type, $name, true);
     }
 
     /**
@@ -258,10 +258,10 @@ class Assert
      */
     private static final function isTypePrivate($value, $type, $name, $use_child_class = false)
     {
-        Assert::isString($type, 'type');
+        static::isString($type, 'type');
 
         if (is_string($value)) {
-            Assert::isNotNullOrWhiteSpace($value, $name);
+            static::isNotNullOrWhiteSpace($value, $name);
             $given_type = static::getType($value);
             if (is_a($value, $type, true) !== true) {
                 static::throwException($name, $type, $given_type, $use_child_class);
@@ -280,7 +280,7 @@ class Assert
      */
     public static final function isOneOfTypes($value, $type_list, $name = null)
     {
-        Assert::isArray($type_list, 'type_list');
+        static::isArray($type_list, 'type_list');
 
         foreach ($type_list as $type) {
             if ($value instanceof $type) {
@@ -302,14 +302,14 @@ class Assert
     public static final function isImplements($value, $interface, $name = null)
     {
         if (is_string($value)) {
-            Assert::isClassExists($value, $name);
+            static::isClassExists($value, $name);
             $given = $value;
         } else {
-            Assert::isObject($value, $name);
-            $given = Assert::getType($value);
+            static::isObject($value, $name);
+            $given = static::getType($value);
         }
 
-        Assert::isInterfaceExists($interface, 'interface');
+        static::isInterfaceExists($interface, 'interface');
 
         if (is_subclass_of($value, $interface) !== true) {
             static::throwException($name, $interface, $given);
@@ -327,15 +327,15 @@ class Assert
         if (is_string($value)) {
             $given = $value;
             if (class_exists($value)) {
-                Assert::isClassExists($parent, 'parent');
+                static::isClassExists($parent, 'parent');
             } elseif (interface_exists($value)) {
-                Assert::isInterfaceExists($parent, 'parent');
+                static::isInterfaceExists($parent, 'parent');
             } else {
                 static::throwException($name, 'existing class or interface', $given);
             }
         } else {
-            Assert::isObject($value, $name);
-            $given = Assert::getType($value);
+            static::isObject($value, $name);
+            $given = static::getType($value);
         }
 
         if (is_subclass_of($value, $parent) !== true) {
@@ -355,7 +355,7 @@ class Assert
      */
     public static final function isNotEmptyString($value, $accept_blanks = false, $name = null)
     {
-        Assert::isString($value, $name);
+        static::isString($value, $name);
 
         if (!$accept_blanks) {
             $value = trim($value);
@@ -374,11 +374,11 @@ class Assert
      */
     public static final function startsWith($value, $starts_with, $name = null)
     {
-        Assert::isString($starts_with, 'starts with');
+        static::isString($starts_with, 'starts with');
 
         $escaped_starts_with = preg_quote($starts_with, '/');
         $regex_pattern = "/^{$escaped_starts_with}/";
-        self::isRegexMatches($value, $regex_pattern, $name);
+        static::isRegexMatches($value, $regex_pattern, $name);
     }
 
     /**
@@ -389,8 +389,8 @@ class Assert
      */
     public static final function isRegexMatches($value, $regex_pattern, $name = null)
     {
-        Assert::isString($value, $name);
-        Assert::isRegexPattern($regex_pattern, 'regex pattern');
+        static::isString($value, $name);
+        static::isRegexPattern($regex_pattern, 'regex pattern');
 
         if (preg_match($regex_pattern, $value) !== 1) {
             static::throwException($name, $regex_pattern, $value);
@@ -404,7 +404,7 @@ class Assert
      */
     public static final function isRegexPattern($value, $name = null)
     {
-        if (Assert::isRegex($value) !== true) {
+        if (static::isRegex($value) !== true) {
             static::throwException($name, 'regex', $value);
         }
     }
@@ -434,7 +434,7 @@ class Assert
      */
     public static final function isNotNullOrWhiteSpace($value, $name = null)
     {
-        self::isNotEmptyString($value, false, $name);
+        static::isNotEmptyString($value, false, $name);
     }
 
     /**
@@ -445,8 +445,8 @@ class Assert
      */
     public static final function isInStringArray($value, $allowed_string_list, $name = null)
     {
-        Assert::isString($value);
-        Assert::isArrayOfString($allowed_string_list);
+        static::isString($value);
+        static::isArrayOfString($allowed_string_list);
 
         if (in_array($value, $allowed_string_list, true) !== true) {
             $excepted = implode(', or ', $allowed_string_list);
@@ -465,10 +465,10 @@ class Assert
      */
     public static final function isNotEmptyArray($value, $name = null)
     {
-        Assert::isArray($value, $name);
+        static::isArray($value, $name);
 
         if (count($value) === 0) {
-            static::throwException($name, 'non empty', Assert::getArrayAsString($value));
+            static::throwException($name, 'non empty', static::getArrayAsString($value));
         }
     }
 
@@ -480,11 +480,11 @@ class Assert
      */
     public static final function isArrayOfType($value, $type, $name = null)
     {
-        Assert::isArray($value, $name);
-        Assert::isTypeExists($type, 'type');
+        static::isArray($value, $name);
+        static::isTypeExists($type, 'type');
 
         foreach ($value as $element) {
-            Assert::isType($element, $type, $name); // todo assertion message is misleading
+            static::isType($element, $type, $name); // todo assertion message is misleading
         }
     }
 
@@ -495,10 +495,10 @@ class Assert
      */
     public static final function isArrayOfString($value, $name = null)
     {
-        Assert::isArray($value, $name);
+        static::isArray($value, $name);
 
         foreach ($value as $element) {
-            Assert::isString($element, $name); // todo assertion message is misleading
+            static::isString($element, $name); // todo assertion message is misleading
         }
     }
 
@@ -511,13 +511,13 @@ class Assert
     public static final function isSequentialArray($value, $accept_empty = true, $name = null)
     {
         if ($accept_empty !== true) {
-            Assert::isNotEmptyArray($value, $name);
+            static::isNotEmptyArray($value, $name);
         } else {
-            Assert::isArray($value, $name);
+            static::isArray($value, $name);
         }
 
         if (array_keys($value) !== range(0, count($value) - 1)) {
-            static::throwException($name, 'sequential array', Assert::getArrayAsString($value));
+            static::throwException($name, 'sequential array', static::getArrayAsString($value));
         }
     }
 
@@ -542,7 +542,7 @@ class Assert
      */
     public static final function isPositive($value, $name = null)
     {
-        Assert::isInt($value, $name);
+        static::isInt($value, $name);
 
         if ($value <= 0) {
             static::throwException($name, 'positive', strval($value));
@@ -556,7 +556,7 @@ class Assert
      */
     public static final function isNotNegative($value, $name = null)
     {
-        Assert::isInt($value, $name);
+        static::isInt($value, $name);
 
         if ($value < 0) {
             static::throwException($name, 'not negative', strval($value));
@@ -614,7 +614,7 @@ class Assert
     {
         if ($use_child_class === true) {
             $exception = static::generateException($name, $expected, $given);
-            Assert::isTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
+            static::isTypePrivate($exception, AssertionExceptionInterface::class, 'exception');
         } else {
             $exception = self::generateException($name, $expected, $given);
         }
