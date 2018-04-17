@@ -1,5 +1,9 @@
 <?php
 
+/** @noinspection PhpDocMissingThrowsInspection */
+
+/** @noinspection PhpUnhandledExceptionInspection */
+
 namespace Fabstract\Component\Assert;
 
 class Assert
@@ -9,7 +13,6 @@ class Assert
     /**
      * @param mixed $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isObject($value, $name = null)
     {
@@ -22,7 +25,6 @@ class Assert
     /**
      * @param mixed $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isNotNull($value, $name = null)
     {
@@ -35,7 +37,6 @@ class Assert
      * @param mixed $value
      * @param mixed $expected
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isEquals($value, $expected, $name = null)
     {
@@ -48,7 +49,6 @@ class Assert
      * @param mixed $value
      * @param mixed $expected
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isNotEquals($value, $expected, $name = null)
     {
@@ -60,7 +60,6 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isTypeExists($value, $name = null)
     {
@@ -74,7 +73,6 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isClassExists($value, $name = null)
     {
@@ -88,7 +86,6 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isInterfaceExists($value, $name = null)
     {
@@ -103,7 +100,6 @@ class Assert
      * @param object|string $object_or_class_name
      * @param string $method
      * @param null $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isMethodExists($object_or_class_name, $method, $name = null)
     {
@@ -130,7 +126,6 @@ class Assert
      * @param mixed[] $allowed_value_list
      * @param bool $type_strict
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isInArray($value, $allowed_value_list, $type_strict = false, $name = null)
     {
@@ -148,7 +143,6 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isCallable($value, $name = null)
     {
@@ -161,7 +155,6 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isString($value, $name = null)
     {
@@ -174,7 +167,6 @@ class Assert
     /**
      * @param $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isBoolean($value, $name = null)
     {
@@ -187,7 +179,6 @@ class Assert
     /**
      * @param int $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isInt($value, $name = null)
     {
@@ -215,7 +206,6 @@ class Assert
     /**
      * @param float $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isFloat($value, $name = null)
     {
@@ -228,7 +218,6 @@ class Assert
     /**
      * @param array $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isArray($value, $name = null)
     {
@@ -242,7 +231,6 @@ class Assert
      * @param mixed $value
      * @param string $type
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isType($value, $type, $name = null)
     {
@@ -254,7 +242,6 @@ class Assert
      * @param string $type
      * @param string $name
      * @param bool $use_child_class
-     * @throws AssertionExceptionInterface
      */
     private static final function isTypePrivate($value, $type, $name, $use_child_class = false)
     {
@@ -276,7 +263,6 @@ class Assert
      * @param mixed $value
      * @param string[] $type_list
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isOneOfTypes($value, $type_list, $name = null)
     {
@@ -297,7 +283,6 @@ class Assert
      * @param string|object $value
      * @param string $interface
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isImplements($value, $interface, $name = null)
     {
@@ -320,7 +305,6 @@ class Assert
      * @param string|object $value
      * @param string $parent
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isChildOf($value, $parent, $name = null)
     {
@@ -351,7 +335,6 @@ class Assert
      * @param string $value
      * @param bool $accept_blanks
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isNotEmptyString($value, $accept_blanks = false, $name = null)
     {
@@ -370,7 +353,6 @@ class Assert
      * @param string $value
      * @param string $starts_with
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function startsWith($value, $starts_with, $name = null)
     {
@@ -385,7 +367,6 @@ class Assert
      * @param string $value
      * @param string $regex_pattern
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isRegexMatches($value, $regex_pattern, $name = null)
     {
@@ -400,7 +381,6 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isRegexPattern($value, $name = null)
     {
@@ -412,7 +392,6 @@ class Assert
     /**
      * @param string $value
      * @return bool
-     * @throws AssertionExceptionInterface
      */
     private static final function isRegex($value)
     {
@@ -430,7 +409,6 @@ class Assert
     /**
      * @param string $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isNotNullOrWhiteSpace($value, $name = null)
     {
@@ -441,7 +419,6 @@ class Assert
      * @param string $value
      * @param string[] $allowed_string_list
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isInStringArray($value, $allowed_string_list, $name = null)
     {
@@ -461,7 +438,6 @@ class Assert
     /**
      * @param array $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isNotEmptyArray($value, $name = null)
     {
@@ -476,7 +452,6 @@ class Assert
      * @param array $value
      * @param string $type
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isArrayOfType($value, $type, $name = null)
     {
@@ -491,7 +466,6 @@ class Assert
     /**
      * @param string[] $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isArrayOfString($value, $name = null)
     {
@@ -506,7 +480,6 @@ class Assert
      * @param array $value
      * @param bool $accept_empty
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isSequentialArray($value, $accept_empty = true, $name = null)
     {
@@ -524,7 +497,6 @@ class Assert
     /**
      * @param array $array
      * @return string
-     * @throws AssertionExceptionInterface
      */
     private static final function getArrayAsString($array)
     {
@@ -538,7 +510,6 @@ class Assert
     /**
      * @param int $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isPositive($value, $name = null)
     {
@@ -552,7 +523,6 @@ class Assert
     /**
      * @param int $value
      * @param string $name
-     * @throws AssertionExceptionInterface
      */
     public static final function isNotNegative($value, $name = null)
     {
@@ -608,7 +578,6 @@ class Assert
      * @param string $expected
      * @param string $given
      * @param bool $use_child_class
-     * @throws AssertionExceptionInterface
      */
     protected static final function throwException($name, $expected, $given, $use_child_class = true)
     {
