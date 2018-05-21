@@ -18,12 +18,12 @@ class DummyClass
 
     }
 
-    private function protectedDummyFunction()
+    protected function protectedDummyFunction()
     {
 
     }
 
-    private function publicDummyFunction()
+    public function publicDummyFunction()
     {
 
     }
