@@ -37,8 +37,21 @@ class Assert
      * @param mixed $value
      * @param mixed $expected
      * @param string $name
+     *
+     * @deprecated 0.2 Use isEqualTo instead
+     * @see Assert::isEqualTo()
      */
     public static final function isEquals($value, $expected, $name = null)
+    {
+        static::isEqualTo($value, $expected, $name);
+    }
+
+    /**
+     * @param mixed $value
+     * @param mixed $expected
+     * @param string $name
+     */
+    public static final function isEqualTo($value, $expected, $name = null)
     {
         if ($value !== $expected) {
             static::throwException($name, 'equals', 'not-equals'); // todo expectation and given should be more meaningful
@@ -49,8 +62,21 @@ class Assert
      * @param mixed $value
      * @param mixed $expected
      * @param string $name
+     *
+     * @deprecated 0.2 Use isNotEqualTo
+     * @see Assert::isNotEqualTo()
      */
     public static final function isNotEquals($value, $expected, $name = null)
+    {
+        static::isNotEqualTo($value, $expected, $name);
+    }
+
+    /**
+     * @param mixed $value
+     * @param mixed $expected
+     * @param string $name
+     */
+    public static final function isNotEqualTo($value, $expected, $name = null)
     {
         if ($value === $expected) {
             static::throwException($name, 'not-equals', 'equals'); // todo expectation and given should be more meaningful
