@@ -16,7 +16,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "Fabstract\\Component\\Assert\\": "src"
+      "Fabstract\\Component\\Assert\\": "src",
+      "Fabstract\\Component\\Assert\\Test\\": "test"
     }
   },
   "require": {
