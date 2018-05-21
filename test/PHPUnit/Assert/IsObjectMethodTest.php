@@ -32,6 +32,17 @@ class IsObjectMethodTest extends MethodTestBase
         $this->callStatic(Assert::class, [$argument]);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testClosureDoesNotThrow()
+    {
+        $argument = function () {
+        };
+
+        $this->callStatic(Assert::class, [$argument]);
+    }
+
     #endregion
 
     #region incorrect arguments
@@ -47,6 +58,46 @@ class IsObjectMethodTest extends MethodTestBase
     public function testIntThrows()
     {
         $argument = 1;
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, [$argument]);
+    }
+
+    public function testFloatThrows()
+    {
+        $argument = 0.1;
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, [$argument]);
+    }
+
+    public function testBooleanThrows()
+    {
+        $argument = false;
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, [$argument]);
+    }
+
+    public function testStringThrows()
+    {
+        $argument = 'string';
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, [$argument]);
+    }
+
+    public function testArrayThrows()
+    {
+        $argument = [];
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, [$argument]);
+    }
+
+    public function testClassThrows()
+    {
+        $argument = Assert::class;
         $this->expectException(AssertionException::class);
 
         $this->callStatic(Assert::class, [$argument]);
