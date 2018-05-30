@@ -230,6 +230,21 @@ class Assert
     }
 
     /**
+     * Useful for checking whether the value is int or float
+     *
+     * @param int|float $value
+     * @param string $name
+     * @author AssertionExceptionInterface
+     */
+    public static final function isIntOrFloat($value, $name = null)
+    {
+        if(!is_int($value) && !is_float($value)){
+            $given_type = static::getType($value);
+            static::throwException($name, 'int or float', $given_type);
+        }
+    }
+
+    /**
      * @param float $value
      * @param string $name
      */
