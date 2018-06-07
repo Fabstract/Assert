@@ -13,8 +13,3 @@ cache:
 
 matrix:
     fast_finish: true
-
-before_script:
-  - composer install
-
-#script: composer test
