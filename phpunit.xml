@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite>
-            <directory>./test/PHPUnit</directory>
+        <testsuite name="phpunit">
+            <directory>test/PHPUnit</directory>
         </testsuite>
     </testsuites>
 </phpunit>
