@@ -1,8 +1,8 @@
 language: php
 
 php:
-  - '7.1'
-  - '7.2'
+  -7.1
+  -7.2
 
 cache:
   directories:
@@ -11,5 +11,5 @@ cache:
 matrix:
     fast_finish: true
 
-before_script:
+install:
   - composer install
