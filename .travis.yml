@@ -8,8 +8,5 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-matrix:
-    fast_finish: true
-
-#before_script:
-#  - composer install
+before_script:
+  - composer install
