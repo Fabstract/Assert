@@ -6,7 +6,6 @@ dist: trusty
 php:
   - 7.1
   - 7.2
-  - nightly
 
 cache:
   directories:
@@ -18,4 +17,4 @@ matrix:
 before_script:
   - composer install
 
-script: composer test
+#script: composer test
