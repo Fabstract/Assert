@@ -221,7 +221,7 @@ class Assert
      * @param string $name
      * @author AssertionExceptionInterface
      */
-    public static final function isStringOrInt($value, $name = null)
+    public static final function isStringOrInt($value, $name = null) // todo test
     {
         if (!is_string($value) && !is_int($value)) {
             $given_type = static::getType($value);
@@ -236,9 +236,9 @@ class Assert
      * @param string $name
      * @author AssertionExceptionInterface
      */
-    public static final function isIntOrFloat($value, $name = null)
+    public static final function isIntOrFloat($value, $name = null) // todo test
     {
-        if(!is_int($value) && !is_float($value)){
+        if (!is_int($value) && !is_float($value)) {
             $given_type = static::getType($value);
             static::throwException($name, 'int or float', $given_type);
         }
@@ -265,6 +265,18 @@ class Assert
         if (!is_array($value)) {
             $given_type = static::getType($value);
             static::throwException($name, 'array', $given_type);
+        }
+    }
+
+    /**
+     * @param string|int|float $value
+     * @param string $name
+     */
+    public static final function isNumeric($value, $name = null)
+    {
+        if (!is_numeric($value)) {
+            $given_type = static::getType($value);
+            static::throwException($name, 'numeric', $given_type);
         }
     }
 
@@ -551,26 +563,94 @@ class Assert
     /**
      * @param int $value
      * @param string $name
+     *
+     * @deprecated Use isPositiveInt instead
+     * @see Assert::isPositiveInt()
      */
     public static final function isPositive($value, $name = null)
     {
-        static::isInt($value, $name);
-
-        if ($value <= 0) {
-            static::throwException($name, 'positive', strval($value));
-        }
+        static::isPositiveInt($value, $name);
     }
 
     /**
      * @param int $value
      * @param string $name
      */
+    public static final function isPositiveInt($value, $name = null)
+    {
+        static::isInt($value, $name);
+
+        if ($value <= 0) {
+            static::throwException($name, 'positive int', strval($value));
+        }
+    }
+
+    /**
+     * @param int $value
+     * @param string $name
+     *
+     * @deprecated Use isNotNegativeInt() instead
+     * @see Assert::isNotNegativeInt()
+     */
     public static final function isNotNegative($value, $name = null)
+    {
+        static::isNotNegativeInt($value, $name);
+    }
+
+    /**
+     * @param int $value
+     * @param string $name
+     */
+    public static final function isNotNegativeInt($value, $name = null)
     {
         static::isInt($value, $name);
 
         if ($value < 0) {
-            static::throwException($name, 'not negative', strval($value));
+            static::throwException($name, 'not negative int', strval($value));
+        }
+    }
+
+    #endregion
+
+    #region number operations
+
+    /**
+     * @param int|float|string $value
+     * @param bool $allow_string
+     * @param string $name
+     */
+    public static final function isPositiveNumber($value, $allow_string = false, $name = null)
+    {
+        static::isBoolean($allow_string, 'allow_string');
+        if ($allow_string) {
+            static::isNumeric($value, $name);
+        } else {
+            static::isIntOrFloat($value, $name);
+        }
+
+        if ($value <= 0) {
+            $given_type = static::getType($value);
+            static::throwException($name, 'positive number', $given_type);
+        }
+    }
+
+    /**
+     * @param int|float|string $value
+     * @param bool $allow_string
+     * @param string $name
+     */
+    public static final function isNotNegativeNumber($value, $allow_string = false, $name = null)
+    {
+        static::isBoolean($allow_string, 'allow_string');
+        if ($allow_string) {
+            static::isNumeric($value, $name);
+        } else {
+            static::isIntOrFloat($value, $name);
+        }
+
+        if ($value < 0) {
+            $given_type = static::getType($value);
+            static::throwException($name, 'not negative number', $given_type);
         }
     }
 
