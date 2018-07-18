@@ -23,6 +23,16 @@ class IsImplementsMethodTest extends MethodTestBase
         $this->callStatic(Assert::class, $argument);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testClassNameAndItsInterfaceDoesNotThrow()
+    {
+        $argument = [DummyClassThatImplementsDummyInterface::class, DummyInterface::class];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
     #endregion
 
     #region incorrect arguments
