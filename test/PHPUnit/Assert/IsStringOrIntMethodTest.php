@@ -4,28 +4,18 @@ namespace Fabstract\Component\Assert\Test\PHPUnit\Assert;
 
 use Fabstract\Component\Assert\Assert;
 use Fabstract\Component\Assert\AssertionException;
-use Fabstract\Component\Assert\Test\PHPUnit\DummyClass;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
-/**
- * Class IsCallableMethodTest
- * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
- *
- * @see \Fabstract\Component\Assert\Assert::isCallable()
- */
-class IsCallableMethodTest extends MethodTestBase
+class IsStringOrIntMethodTest extends MethodTestBase
 {
-
     #region correct arguments
 
     /**
      * @doesNotPerformAssertions
      */
-    public function testClosureDoesNotThrow()
+    public function testStringOneDoesNotThrow()
     {
-        $closure = function () {
-        };
-        $argument = [$closure];
+        $argument = ['1'];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -33,9 +23,9 @@ class IsCallableMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testObjectPublicMethodDoesNotThrow()
+    public function testIntOneDoesNotThrow()
     {
-        $argument = [[new DummyClass(), 'publicDummyFunction']];
+        $argument = [1];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -43,9 +33,19 @@ class IsCallableMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testCallableNameDoesNotThrow()
+    public function testStringZeroDoesNotThrow()
     {
-        $argument = ['str_replace'];
+        $argument = ['0'];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testIntZeroDoesNotThrow()
+    {
+        $argument = [0];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -54,34 +54,28 @@ class IsCallableMethodTest extends MethodTestBase
 
     #region incorrect arguments
 
-    public function testNotACallableNameThrows()
-    {
-        $argument = ['nonexistingcallablename'];
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
     public function testNullThrows()
     {
         $argument = [null];
+
         $this->expectException(AssertionException::class);
 
         $this->callStatic(Assert::class, $argument);
     }
 
-    public function testObjectProtectedMethodThrows()
+    public function testArrayThrows()
     {
-        $argument = [[new DummyClass(), 'protectedDummyFunction']];
+        $argument = [[]];
+
         $this->expectException(AssertionException::class);
 
         $this->callStatic(Assert::class, $argument);
     }
 
-
-    public function testObjectPrivateMethodThrows()
+    public function testFloatOneThrows()
     {
-        $argument = [[new DummyClass(), 'privateDummyFunction']];
+        $argument = [1.0];
+
         $this->expectException(AssertionException::class);
 
         $this->callStatic(Assert::class, $argument);

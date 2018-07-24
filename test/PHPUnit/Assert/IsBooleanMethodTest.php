@@ -6,6 +6,12 @@ use Fabstract\Component\Assert\Assert;
 use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
+/**
+ * Class IsBooleanMethodTest
+ * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
+ *
+ * @see \Fabstract\Component\Assert\Assert::isBoolean()
+ */
 class IsBooleanMethodTest extends MethodTestBase
 {
 

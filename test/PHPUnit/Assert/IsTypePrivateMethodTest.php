@@ -5,17 +5,13 @@ namespace Fabstract\Component\Assert\Test\PHPUnit\Assert;
 use Fabstract\Component\Assert\Assert;
 use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClass;
+use Fabstract\Component\Assert\Test\PHPUnit\DummyClassThatImplementsDummyInterface;
+use Fabstract\Component\Assert\Test\PHPUnit\DummyClassWithDummyTrait;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyTrait;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
-/**
- * Class IsClassExistsMethodTest
- * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
- *
- * @see \Fabstract\Component\Assert\Assert::isClassExists()
- */
-class IsClassExistsMethodTest extends MethodTestBase
+class IsTypePrivateMethodTest extends MethodTestBase
 {
 
     #region correct arguments
@@ -23,9 +19,19 @@ class IsClassExistsMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testExistingClassDoesNotThrow()
+    public function testExistingClassAndItsInstanceDoesNotThrow()
     {
-        $argument = [DummyClass::class];
+        $argument = [new DummyClass(), DummyClass::class, null];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testExistingInterfaceAndItsInstanceDoesNotThrow()
+    {
+        $argument = [new DummyClassThatImplementsDummyInterface(), DummyInterface::class, null];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -34,18 +40,9 @@ class IsClassExistsMethodTest extends MethodTestBase
 
     #region incorrect arguments
 
-    public function testNonExistingClassThrows()
+    public function testNullThrows()
     {
-        $argument = ['nonexistingclassname'];
-
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
-    public function testExistingInterfaceThrows()
-    {
-        $argument = [DummyInterface::class];
+        $argument = [null, 'type', null];
 
         $this->expectException(AssertionException::class);
 
@@ -54,7 +51,7 @@ class IsClassExistsMethodTest extends MethodTestBase
 
     public function testExistingTraitThrows()
     {
-        $argument = [DummyTrait::class];
+        $argument = [new DummyClassWithDummyTrait(), DummyTrait::class, null];
 
         $this->expectException(AssertionException::class);
 

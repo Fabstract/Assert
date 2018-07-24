@@ -4,16 +4,15 @@ namespace Fabstract\Component\Assert\Test\PHPUnit\Assert;
 
 use Fabstract\Component\Assert\Assert;
 use Fabstract\Component\Assert\AssertionException;
-use Fabstract\Component\Assert\Test\PHPUnit\DummyClass;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
 /**
- * Class IsCallableMethodTest
+ * Class IsRegexMatchesMethodTest
  * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
  *
- * @see \Fabstract\Component\Assert\Assert::isCallable()
+ * @see \Fabstract\Component\Assert\Assert::isRegexMatches()
  */
-class IsCallableMethodTest extends MethodTestBase
+class IsRegexMatchesMethodTest extends MethodTestBase
 {
 
     #region correct arguments
@@ -21,11 +20,9 @@ class IsCallableMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testClosureDoesNotThrow()
+    public function testOnlyLowercaseWordStringWithLowercaseWordRegexDoesNotThrow()
     {
-        $closure = function () {
-        };
-        $argument = [$closure];
+        $argument = ['only_word_string', '/^\w+$/'];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -33,9 +30,9 @@ class IsCallableMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testObjectPublicMethodDoesNotThrow()
+    public function testEmptyStringWithAnyCharacterRegexDoesNotThrow()
     {
-        $argument = [[new DummyClass(), 'publicDummyFunction']];
+        $argument = ['', '/.*/'];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -43,9 +40,9 @@ class IsCallableMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testCallableNameDoesNotThrow()
+    public function testEmptyRegexDoesNotThrow()
     {
-        $argument = ['str_replace'];
+        $argument = ['some string', '//'];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -54,34 +51,28 @@ class IsCallableMethodTest extends MethodTestBase
 
     #region incorrect arguments
 
-    public function testNotACallableNameThrows()
-    {
-        $argument = ['nonexistingcallablename'];
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
     public function testNullThrows()
     {
-        $argument = [null];
+        $argument = [null, null];
+
         $this->expectException(AssertionException::class);
 
         $this->callStatic(Assert::class, $argument);
     }
 
-    public function testObjectProtectedMethodThrows()
+    public function testInvalidRegexThrows()
     {
-        $argument = [[new DummyClass(), 'protectedDummyFunction']];
+        $argument = ['some string', '/not_a_regex_string'];
+
         $this->expectException(AssertionException::class);
 
         $this->callStatic(Assert::class, $argument);
     }
 
-
-    public function testObjectPrivateMethodThrows()
+    public function testNonStringRegexArgumentThrows()
     {
-        $argument = [[new DummyClass(), 'privateDummyFunction']];
+        $argument = ['some string', 123];
+
         $this->expectException(AssertionException::class);
 
         $this->callStatic(Assert::class, $argument);

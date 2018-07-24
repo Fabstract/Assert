@@ -13,6 +13,7 @@ class Assert
     /**
      * @param mixed $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsObjectMethodTest
      */
     public static final function isObject($value, $name = null)
     {
@@ -25,6 +26,7 @@ class Assert
     /**
      * @param mixed $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsNotNullMethodTest
      */
     public static final function isNotNull($value, $name = null)
     {
@@ -50,6 +52,7 @@ class Assert
      * @param mixed $value
      * @param mixed $expected
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsEqualToMethodTest
      */
     public static final function isEqualTo($value, $expected, $name = null)
     {
@@ -75,6 +78,7 @@ class Assert
      * @param mixed $value
      * @param mixed $expected
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsNotEqualToMethodTest
      */
     public static final function isNotEqualTo($value, $expected, $name = null)
     {
@@ -86,6 +90,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsTypeExistsMethodTest
      */
     public static final function isTypeExists($value, $name = null)
     {
@@ -99,6 +104,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsClassExistsMethodTest
      */
     public static final function isClassExists($value, $name = null)
     {
@@ -112,6 +118,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsInterfaceExistsMethodTest
      */
     public static final function isInterfaceExists($value, $name = null)
     {
@@ -126,6 +133,7 @@ class Assert
      * @param object|string $object_or_class_name
      * @param string $method
      * @param null $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsMethodExistsMethodTest
      */
     public static final function isMethodExists($object_or_class_name, $method, $name = null)
     {
@@ -152,6 +160,7 @@ class Assert
      * @param mixed[] $allowed_value_list
      * @param bool $type_strict
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsInArrayMethodTest
      */
     public static final function isInArray($value, $allowed_value_list, $type_strict = false, $name = null)
     {
@@ -169,6 +178,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsCallableMethodTest
      */
     public static final function isCallable($value, $name = null)
     {
@@ -181,6 +191,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsStringMethodTest
      */
     public static final function isString($value, $name = null)
     {
@@ -193,6 +204,7 @@ class Assert
     /**
      * @param $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsBooleanMethodTest
      */
     public static final function isBoolean($value, $name = null)
     {
@@ -205,6 +217,7 @@ class Assert
     /**
      * @param int $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsIntMethodTest
      */
     public static final function isInt($value, $name = null)
     {
@@ -219,9 +232,9 @@ class Assert
      *
      * @param int|string $value
      * @param string $name
-     * @author AssertionExceptionInterface
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsStringOrIntMethodTest
      */
-    public static final function isStringOrInt($value, $name = null) // todo test
+    public static final function isStringOrInt($value, $name = null)
     {
         if (!is_string($value) && !is_int($value)) {
             $given_type = static::getType($value);
@@ -234,9 +247,9 @@ class Assert
      *
      * @param int|float $value
      * @param string $name
-     * @author AssertionExceptionInterface
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsIntOrFloatMethodTest
      */
-    public static final function isIntOrFloat($value, $name = null) // todo test
+    public static final function isIntOrFloat($value, $name = null)
     {
         if (!is_int($value) && !is_float($value)) {
             $given_type = static::getType($value);
@@ -247,6 +260,7 @@ class Assert
     /**
      * @param float $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsFloatMethodTest
      */
     public static final function isFloat($value, $name = null)
     {
@@ -259,6 +273,7 @@ class Assert
     /**
      * @param array $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsArrayMethodTest
      */
     public static final function isArray($value, $name = null)
     {
@@ -271,6 +286,7 @@ class Assert
     /**
      * @param string|int|float $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsNumericMethodTest
      */
     public static final function isNumeric($value, $name = null)
     {
@@ -284,6 +300,7 @@ class Assert
      * @param mixed $value
      * @param string $type
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsTypeMethodTest
      */
     public static final function isType($value, $type, $name = null)
     {
@@ -295,6 +312,7 @@ class Assert
      * @param string $type
      * @param string $name
      * @param bool $use_child_class
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsTypePrivateMethodTest
      */
     private static final function isTypePrivate($value, $type, $name, $use_child_class = false)
     {
@@ -316,6 +334,7 @@ class Assert
      * @param mixed $value
      * @param string[] $type_list
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsOneOfTypesMethodTest
      */
     public static final function isOneOfTypes($value, $type_list, $name = null)
     {
@@ -336,6 +355,7 @@ class Assert
      * @param string|object $value
      * @param string $interface
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsImplementsMethodTest
      */
     public static final function isImplements($value, $interface, $name = null)
     {
@@ -358,6 +378,7 @@ class Assert
      * @param string|object $value
      * @param string $parent
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsChildOfMethodTest
      */
     public static final function isChildOf($value, $parent, $name = null)
     {
@@ -388,6 +409,7 @@ class Assert
      * @param string $value
      * @param bool $accept_blanks
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsNotEmptyStringMethodTest
      */
     public static final function isNotEmptyString($value, $accept_blanks = false, $name = null)
     {
@@ -406,6 +428,7 @@ class Assert
      * @param string $value
      * @param string $starts_with
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\StartsWithMethodTest
      */
     public static final function startsWith($value, $starts_with, $name = null)
     {
@@ -420,6 +443,7 @@ class Assert
      * @param string $value
      * @param string $regex_pattern
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsRegexMatchesMethodTest
      */
     public static final function isRegexMatches($value, $regex_pattern, $name = null)
     {
@@ -434,6 +458,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsRegexPatternMethodTest
      */
     public static final function isRegexPattern($value, $name = null)
     {
@@ -445,6 +470,7 @@ class Assert
     /**
      * @param string $value
      * @return bool
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsRegexMethodTest
      */
     private static final function isRegex($value)
     {
@@ -462,6 +488,7 @@ class Assert
     /**
      * @param string $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsNotNullOrWhiteSpaceMethodTest
      */
     public static final function isNotNullOrWhiteSpace($value, $name = null)
     {
@@ -472,6 +499,7 @@ class Assert
      * @param string $value
      * @param string[] $allowed_string_list
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsInStringArrayMethodTest
      */
     public static final function isInStringArray($value, $allowed_string_list, $name = null)
     {

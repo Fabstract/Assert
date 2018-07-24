@@ -7,6 +7,12 @@ use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClass;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
+/**
+ * Class IsEqualToMethodTest
+ * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
+ *
+ * @see \Fabstract\Component\Assert\Assert::isEqualTo()
+ */
 class IsEqualToMethodTest extends MethodTestBase
 {
     #region correct arguments

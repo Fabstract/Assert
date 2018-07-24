@@ -8,6 +8,12 @@ use Fabstract\Component\Assert\Test\PHPUnit\DummyClassThatImplementsDummyInterfa
 use Fabstract\Component\Assert\Test\PHPUnit\DummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
+/**
+ * Class IsImplementsMethodTest
+ * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
+ *
+ * @see \Fabstract\Component\Assert\Assert::isImplements()
+ */
 class IsImplementsMethodTest extends MethodTestBase
 {
 

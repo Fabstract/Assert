@@ -7,12 +7,12 @@ use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
 /**
- * Class IsFloatMethodTest
+ * Class IsRegexPatternMethodTest
  * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
  *
- * @see \Fabstract\Component\Assert\Assert::isFloat()
+ * @see \Fabstract\Component\Assert\Assert::isRegexPattern()
  */
-class IsFloatMethodTest extends MethodTestBase
+class IsRegexPatternMethodTest extends MethodTestBase
 {
 
     #region correct arguments
@@ -20,9 +20,9 @@ class IsFloatMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testFloatOneDoesNotThrow()
+    public function testEmptyRegexDoesNotThrow()
     {
-        $argument = [1.0];
+        $argument = ['//'];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -30,19 +30,9 @@ class IsFloatMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testFloatZeroDoesNotThrow()
+    public function testAnyCharacterRegexPatternDoesNotThrow()
     {
-        $argument = [0.0];
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testINFDoesNotThrow()
-    {
-        $argument = [INF];
+        $argument = ['/./'];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -51,7 +41,16 @@ class IsFloatMethodTest extends MethodTestBase
 
     #region incorrect arguments
 
-    public function testIntOneThrows()
+    public function testNullThrows()
+    {
+        $argument = [null];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testNonStringArgumentThrows()
     {
         $argument = [1];
 
@@ -60,18 +59,9 @@ class IsFloatMethodTest extends MethodTestBase
         $this->callStatic(Assert::class, $argument);
     }
 
-    public function testIntZeroThrows()
+    public function testStringWithoutSlashesThrows()
     {
-        $argument = [0];
-
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
-    public function testNullThrows()
-    {
-        $argument = [null];
+        $argument = ['string without slashes'];
 
         $this->expectException(AssertionException::class);
 

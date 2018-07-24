@@ -7,12 +7,12 @@ use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
 /**
- * Class IsFloatMethodTest
+ * Class IsInStringArrayMethodTest
  * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
  *
- * @see \Fabstract\Component\Assert\Assert::isFloat()
+ * @see \Fabstract\Component\Assert\Assert::isInStringArray()
  */
-class IsFloatMethodTest extends MethodTestBase
+class IsInStringArrayMethodTest extends MethodTestBase
 {
 
     #region correct arguments
@@ -20,29 +20,9 @@ class IsFloatMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testFloatOneDoesNotThrow()
+    public function testStringWithAllowedStringListThatIncludesDoesNotThrow()
     {
-        $argument = [1.0];
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testFloatZeroDoesNotThrow()
-    {
-        $argument = [0.0];
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testINFDoesNotThrow()
-    {
-        $argument = [INF];
+        $argument = ['string', ['string', 'some other string']];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -51,27 +31,36 @@ class IsFloatMethodTest extends MethodTestBase
 
     #region incorrect arguments
 
-    public function testIntOneThrows()
-    {
-        $argument = [1];
-
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
-    public function testIntZeroThrows()
-    {
-        $argument = [0];
-
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
     public function testNullThrows()
     {
-        $argument = [null];
+        $argument = [null, null];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testNonStringValueThrows()
+    {
+        $argument = [null, ['string_1', 'string_2']];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testAllowedStringListIsNoTAStringArrayThrows()
+    {
+        $argument = ['string', 123];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testEmptyAllowedStringListThrows()
+    {
+        $argument = ['string', []];
 
         $this->expectException(AssertionException::class);
 

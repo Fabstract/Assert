@@ -6,16 +6,20 @@ use Fabstract\Component\Assert\Assert;
 use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
-/**
- * Class IsFloatMethodTest
- * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
- *
- * @see \Fabstract\Component\Assert\Assert::isFloat()
- */
-class IsFloatMethodTest extends MethodTestBase
+class IsIntOrFloatMethodTest extends MethodTestBase
 {
 
     #region correct arguments
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testIntOneDoesNotThrow()
+    {
+        $argument = [1];
+
+        $this->callStatic(Assert::class, $argument);
+    }
 
     /**
      * @doesNotPerformAssertions
@@ -30,9 +34,9 @@ class IsFloatMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testFloatZeroDoesNotThrow()
+    public function testIntZeroDoesNotThrow()
     {
-        $argument = [0.0];
+        $argument = [0];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -40,9 +44,9 @@ class IsFloatMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testINFDoesNotThrow()
+    public function testFloatZeroDoesNotThrow()
     {
-        $argument = [INF];
+        $argument = [0.0];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -51,27 +55,18 @@ class IsFloatMethodTest extends MethodTestBase
 
     #region incorrect arguments
 
-    public function testIntOneThrows()
-    {
-        $argument = [1];
-
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
-    public function testIntZeroThrows()
-    {
-        $argument = [0];
-
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
     public function testNullThrows()
     {
         $argument = [null];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testStringZeroThrows()
+    {
+        $argument = ['0'];
 
         $this->expectException(AssertionException::class);
 

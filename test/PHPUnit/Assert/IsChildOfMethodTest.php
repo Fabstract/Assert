@@ -11,6 +11,12 @@ use Fabstract\Component\Assert\Test\PHPUnit\DummyClassThatImplementsDummyInterfa
 use Fabstract\Component\Assert\Test\PHPUnit\DummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
+/**
+ * Class IsChildOfMethodTest
+ * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
+ *
+ * @see \Fabstract\Component\Assert\Assert::isChildOf()
+ */
 class IsChildOfMethodTest extends MethodTestBase
 {
 

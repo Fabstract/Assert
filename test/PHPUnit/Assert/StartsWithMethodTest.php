@@ -7,12 +7,12 @@ use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
 
 /**
- * Class IsFloatMethodTest
+ * Class StartsWithMethodTest
  * @package Fabstract\Component\Assert\Test\PHPUnit\Assert
  *
- * @see \Fabstract\Component\Assert\Assert::isFloat()
+ * @see \Fabstract\Component\Assert\Assert::startsWith()
  */
-class IsFloatMethodTest extends MethodTestBase
+class StartsWithMethodTest extends MethodTestBase
 {
 
     #region correct arguments
@@ -20,9 +20,9 @@ class IsFloatMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testFloatOneDoesNotThrow()
+    public function testTheSameStringDoesNotThrow()
     {
-        $argument = [1.0];
+        $argument = ['example', 'example'];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -30,19 +30,31 @@ class IsFloatMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
-    public function testFloatZeroDoesNotThrow()
+    public function testSpaceDoesNotThrow()
     {
-        $argument = [0.0];
+        $argument = [' example', ' '];
 
         $this->callStatic(Assert::class, $argument);
     }
 
+
     /**
      * @doesNotPerformAssertions
      */
-    public function testINFDoesNotThrow()
+    public function testEmptyStringDoesNotThrow()
     {
-        $argument = [INF];
+        $argument = ['', ''];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testSubstringDoesNotThrow()
+    {
+        $argument = ['example', 'exam'];
 
         $this->callStatic(Assert::class, $argument);
     }
@@ -51,27 +63,18 @@ class IsFloatMethodTest extends MethodTestBase
 
     #region incorrect arguments
 
-    public function testIntOneThrows()
-    {
-        $argument = [1];
-
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
-    public function testIntZeroThrows()
-    {
-        $argument = [0];
-
-        $this->expectException(AssertionException::class);
-
-        $this->callStatic(Assert::class, $argument);
-    }
-
     public function testNullThrows()
     {
-        $argument = [null];
+        $argument = [null, null];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testDifferentFirstCharacterThrows()
+    {
+        $argument = ['example', 'bxample'];
 
         $this->expectException(AssertionException::class);
 
