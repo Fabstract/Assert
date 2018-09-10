@@ -564,11 +564,13 @@ class Assert
      */
     public static final function isSequentialArray($value, $accept_empty = true, $name = null)
     {
-        if ($accept_empty !== true) {
-            static::isNotEmptyArray($value, $name);
-        } else {
-            static::isArray($value, $name);
+        static::isArray($value, $name);
+
+        if ($accept_empty === true && count($value) === 0) {
+            return;
         }
+
+        static::isNotEmptyArray($value, $name);
 
         if (array_keys($value) !== range(0, count($value) - 1)) {
             static::throwException($name, 'sequential array', static::getArrayAsString($value));
