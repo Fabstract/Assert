@@ -519,6 +519,7 @@ class Assert
     /**
      * @param array $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsNotEmptyArrayMethodTest
      */
     public static final function isNotEmptyArray($value, $name = null)
     {
@@ -533,6 +534,7 @@ class Assert
      * @param array $value
      * @param string $type
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsArrayOfTypeMethodTest
      */
     public static final function isArrayOfType($value, $type, $name = null)
     {
@@ -547,6 +549,7 @@ class Assert
     /**
      * @param string[] $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsArrayOfStringMethodTest
      */
     public static final function isArrayOfString($value, $name = null)
     {
@@ -561,6 +564,7 @@ class Assert
      * @param array $value
      * @param bool $accept_empty
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsSequentialArrayMethodTest
      */
     public static final function isSequentialArray($value, $accept_empty = true, $name = null)
     {
@@ -605,6 +609,7 @@ class Assert
     /**
      * @param int $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsPositiveIntMethodTest
      */
     public static final function isPositiveInt($value, $name = null)
     {
@@ -630,6 +635,7 @@ class Assert
     /**
      * @param int $value
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsNotNegativeIntMethodTest
      */
     public static final function isNotNegativeInt($value, $name = null)
     {
@@ -648,6 +654,7 @@ class Assert
      * @param int|float|string $value
      * @param bool $allow_string
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsPositiveNumberMethodTest
      */
     public static final function isPositiveNumber($value, $allow_string = false, $name = null)
     {
@@ -668,6 +675,7 @@ class Assert
      * @param int|float|string $value
      * @param bool $allow_string
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsNotNegativeNumberMethodTest
      */
     public static final function isNotNegativeNumber($value, $allow_string = false, $name = null)
     {
