@@ -65,5 +65,16 @@ class IsChildOfMethodTest extends MethodTestBase
         $this->callStatic(Assert::class, $argument);
     }
 
+    #region incorrect arguments
+
+    public function testTheSameClassThrows()
+    {
+        $argument = [new DummyClass(), DummyClass::class];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
     #endregion
 }

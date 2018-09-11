@@ -43,6 +43,26 @@ class IsCallableMethodTest extends MethodTestBase
     /**
      * @doesNotPerformAssertions
      */
+    public function testClassNamePublicMethodDoesNotThrow()
+    {
+        $argument = [[DummyClass::class, 'publicDummyFunction']];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testClassNamePublicStaticMethodDoesNotThrow()
+    {
+        $argument = [[DummyClass::class, 'publicStaticDummyFunction']];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCallableNameDoesNotThrow()
     {
         $argument = ['str_replace'];
@@ -78,10 +98,25 @@ class IsCallableMethodTest extends MethodTestBase
         $this->callStatic(Assert::class, $argument);
     }
 
+    public function testObjectProtectedStaticMethodThrows()
+    {
+        $argument = [[new DummyClass(), 'protectedStaticDummyFunction']];
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
 
     public function testObjectPrivateMethodThrows()
     {
         $argument = [[new DummyClass(), 'privateDummyFunction']];
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testObjectPrivateStaticMethodThrows()
+    {
+        $argument = [[new DummyClass(), 'privateStaticDummyFunction']];
         $this->expectException(AssertionException::class);
 
         $this->callStatic(Assert::class, $argument);

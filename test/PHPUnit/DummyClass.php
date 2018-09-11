@@ -13,6 +13,16 @@ class DummyClass
 
     }
 
+    protected static function protectedStaticDummyFunction()
+    {
+
+    }
+
+    public static function publicStaticDummyFunction()
+    {
+
+    }
+
     private function privateDummyFunction()
     {
 

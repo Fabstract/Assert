@@ -4,7 +4,9 @@ namespace Fabstract\Component\Assert\Test\PHPUnit\Assert;
 
 use Fabstract\Component\Assert\Assert;
 use Fabstract\Component\Assert\AssertionException;
+use Fabstract\Component\Assert\Test\PHPUnit\ChildDummyClassThatExtendsDummyClass;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClass;
+use Fabstract\Component\Assert\Test\PHPUnit\DummyClassThatImplementsChildDummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClassThatImplementsDummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClassWithDummyTrait;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyInterface;
@@ -22,6 +24,26 @@ class IsTypeMethodTest extends MethodTestBase
     public function testExistingClassAndItsInstanceDoesNotThrow()
     {
         $argument = [new DummyClass(), DummyClass::class];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testChildClassInstanceAndParentClassDoesNotThrow()
+    {
+        $argument = [new ChildDummyClassThatExtendsDummyClass(), DummyClass::class];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function tesClassInstanceThatImplementsChildInterfaceAndParentInterfaceDoesNotThrow()
+    {
+        $argument = [new DummyClassThatImplementsChildDummyInterface(), DummyInterface::class];
 
         $this->callStatic(Assert::class, $argument);
     }

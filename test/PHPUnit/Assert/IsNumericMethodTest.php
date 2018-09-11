@@ -101,6 +101,16 @@ class IsNumericMethodTest extends MethodTestBase
         $this->callStatic(Assert::class, $argument);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testStringPointFiveDoesNotThrow()
+    {
+        $argument = ['0.5'];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
     #endregion
 
     #region incorrect arguments
@@ -108,6 +118,33 @@ class IsNumericMethodTest extends MethodTestBase
     public function testNullThrows()
     {
         $argument = [null];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testNonNumericStringThrows()
+    {
+        $argument = ['some string'];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testBooleanTrueThrows()
+    {
+        $argument = [true];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testBooleanFalseThrows()
+    {
+        $argument = [false];
 
         $this->expectException(AssertionException::class);
 
