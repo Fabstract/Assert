@@ -311,6 +311,17 @@ class Assert
      * @param mixed $value
      * @param string $type
      * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsInstanceOfMethodTest
+     */
+    public static final function isInstanceOf($value, $type, $name = null)
+    {
+        static::isType($value, $type, $name);
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $type
+     * @param string $name
      * @param bool $use_child_class
      * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsTypePrivateMethodTest
      */
