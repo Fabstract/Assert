@@ -79,8 +79,6 @@ otherwise.
     
 ## General operations
 
-General operations [todo](#TODO)
-
 ### isObject($value, $name = null)
 
 Checks if given `$value` is object. Throws exception if fails.
@@ -166,12 +164,12 @@ Checks if there is a method called `$method` inside `$object_or_class_name`. Thr
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
-    class SomeTrait {
+    trait SomeTrait {
         public function somePublicTraitMethod {}
         private function somePrivateTraitMethod {}
     }
     
-    class SomeOtherTrait {
+    trait SomeOtherTrait {
         public function someOtherPublicTraitMethod {}
     }
 
@@ -189,6 +187,17 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     Assert::isMethodExists('someclass', 'somePrivateTraitMethod', 'variable name'); // no exception
     Assert::isMethodExists('someclass', 'someOtherPublicTraitMethod', 'variable name'); // exception!
     Assert::isMethodExists('someclass', 'someMethodThatDoesNotExist', 'variable name'); // exception!
+    
+Works with instances as well:
+
+    $instance = new SomeClass();
+
+    Assert::isMethodExists($instance, 'somePublicMethod', 'variable name'); // no exception
+    Assert::isMethodExists($instance, 'somePrivateMethod', 'variable name'); // no exception
+    Assert::isMethodExists($instance, 'somePublicTraitMethod', 'variable name'); // no exception
+    Assert::isMethodExists($instance, 'somePrivateTraitMethod', 'variable name'); // no exception
+    Assert::isMethodExists($instance, 'someOtherPublicTraitMethod', 'variable name'); // exception!
+    Assert::isMethodExists($instance, 'someMethodThatDoesNotExist', 'variable name'); // exception!
 
 ### isInArray($value, $allowed_value_list, $type_strict = false, $name = null)
 
