@@ -26,6 +26,15 @@ class IsInStringArrayMethodTest extends MethodTestBase
 
         $this->callStatic(Assert::class, $argument);
     }
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testEmptyStringDoesNotThrow()
+    {
+        $argument = ['', ['']];
+
+        $this->callStatic(Assert::class, $argument);
+    }
 
     #endregion
 
@@ -61,6 +70,24 @@ class IsInStringArrayMethodTest extends MethodTestBase
     public function testEmptyAllowedStringListThrows()
     {
         $argument = ['string', []];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testEmptyStringAndEmptyListThrows()
+    {
+        $argument = ['', []];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    public function testNullStringAndEmptyListThrows()
+    {
+        $argument = [null, []];
 
         $this->expectException(AssertionException::class);
 

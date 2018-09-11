@@ -69,6 +69,15 @@ class IsRegexMatchesMethodTest extends MethodTestBase
         $this->callStatic(Assert::class, $argument);
     }
 
+    public function testTheSameStringAsPatternThrows()
+    {
+        $argument = ['string', 'string'];
+
+        $this->expectException(AssertionException::class);
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
     public function testNonStringRegexArgumentThrows()
     {
         $argument = ['some string', 123];

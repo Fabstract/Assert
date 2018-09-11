@@ -37,17 +37,45 @@ class StartsWithMethodTest extends MethodTestBase
         $this->callStatic(Assert::class, $argument);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testSlashDoesNotThrow()
+    {
+        $argument = ['/example', '/'];
+
+        $this->callStatic(Assert::class, $argument);
+    }
 
     /**
      * @doesNotPerformAssertions
      */
-    public function testEmptyStringDoesNotThrow()
+    public function testBackslashDoesNotThrow()
+    {
+        $argument = ['\example', '\\'];
+
+        $this->callStatic(Assert::class, $argument);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testEmptyStringWithEmptyStringDoesNotThrow()
     {
         $argument = ['', ''];
 
         $this->callStatic(Assert::class, $argument);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testEmptyStringDoesNotThrow()
+    {
+        $argument = ['string', ''];
+
+        $this->callStatic(Assert::class, $argument);
+    }
 
     /**
      * @doesNotPerformAssertions
