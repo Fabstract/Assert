@@ -81,12 +81,12 @@ time, thus debug a lot easier.
     - [isImplements($value, $interface, [$name])](#isimplementsvalue-interface-name--null)
     - [isChildOf($value, $parent, [$name])](#ischildofvalue-parent-name--null)
 - [String operations](#string-operations)
-    - [isNotEmptyString($value, $accept_blanks, $name)](#is-not-empty-string)
-    - [startsWith($value, $starts_with, $name)](#starts-with)
-    - [isRegexMatches($value, $regex_pattern, $name)](#is-regex-matches)
-    - [isRegexPattern($value, $name)](#is-regex-pattern)
-    - [isNotNullOrWhiteSpace($value, $name)](#is-not-null-or-white-space)
-    - [isInStringArray($value, $allowed_string_list, $name)](#is-in-string-array)
+    - [isNotEmptyString($value, [$accept_blanks], [$name])](#isnotemptystringvalue-accept_blanks--false-name--null)
+    - [startsWith($value, $starts_with, [$name])](#startswithvalue-starts_with-name--null)
+    - [isRegexMatches($value, $regex_pattern, [$name])](#isregexmatchesvalue-regex_pattern-name--null)
+    - [isRegexPattern($value, [$name])](#isregexpatternvalue-name--null)
+    - [isNotNullOrWhiteSpace($value, [$name])](#isnotnullorwhitespacevalue-name--null)
+    - [isInStringArray($value, $allowed_string_list, [$name])](#isinstringarrayvalue-allowed_string_list-name--null)
 - [Array operations](#array-operations)
     - [isNotEmptyArray($value, $name)](#is-not-empty-array)
     - [isArrayOfType($value, $type, $name)](#is-array-of-type)
@@ -478,6 +478,82 @@ Works with interfaces and child interfaces too.
     
     Assert::isChildOf('someinterface', 'someinterface', 'variable name'); // exception!
     
+    
+## String operations
+
+### isNotEmptyString($value, $accept_blanks = false, $name = null)
+
+Checks if given `$value` is empty string or not. Throws exception if fails.
+
+Optional parameter `$accept_blanks` determines whether blank strings are allowed or not.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isNotEmptyString('some string', false, 'variable name'); // no exception
+    Assert::isNotEmptyString(' ', true, 'variable name'); // no exception
+    
+    Assert::isNotEmptyString(' ', false, 'variable name'); // exception!
+    Assert::isNotEmptyString('', true, 'variable name'); // exception!
+    Assert::isNotEmptyString('', false, 'variable name'); // exception!
+    Assert::isNotEmptyString(0, false, 'variable name'); // exception!
+
+### startsWith($value, $starts_with, $name = null)
+
+Checks if given `$value` starts with given `$starts_with`. Throws exception if fails.
+
+Note that `$starts_with` **can** be empty string, and if it is then no string value can generate an exception.
+
+Also note that this method is case-sensitive.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::startsWith('string', 's', 'variable name'); // no exception
+    Assert::startsWith('string', 'str', 'variable name'); // no exception
+    Assert::startsWith(' string', ' ', 'variable name'); // no exception
+    Assert::startsWith('string', '', 'variable name'); // no exception (empty string never throws)
+    
+    Assert::startsWith('string', 'a', 'variable name'); // exception!
+    Assert::startsWith('string', 'S', 'variable name'); // exception!
+
+### isRegexMatches($value, $regex_pattern, $name = null)
+
+Checks if given `$value` matches given `$regex_pattern`. Throws exception if fails.
+
+Note that if `$regex_pattern` is not a valid regex pattern, again exception will be thrown.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isRegexMatches('string', '/[w]+/', 'variable name'); // no exception
+    
+    Assert::isRegexMatches('string', '/[d]+/', 'variable name'); // exception!
+    Assert::isRegexMatches('string', 'string', 'variable name'); // exception! (invalid regex pattern)
+
+### isRegexPattern($value, $name = null)
+
+Checks if given `$value` is a valid regex pattern. Throws exception if fails.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isRegexPattern('/regex/', 'variable name'); // no exception
+    Assert::isRegexPattern('/\w/', 'variable name'); // no exception
+    Assert::isRegexPattern('//', 'variable name'); // no exception
+    
+    Assert::isRegexPattern('string', 'variable name'); // exception!
+
+### isNotNullOrWhiteSpace($value, $name = null)
+
+See [isNotEmptyString($value, [$accept_blanks], [$name])](#isnotemptystringvalue-accept_blanks--false-name--null).
+
+### isInStringArray($value, $allowed_string_list, $name = null)
+
+Checks if given `$value` is in `$allowed_string_list`. Throws exception if fails.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isInStringArray('string', ['abcd', 'string']); // no exception
+    Assert::isInStringArray('', ['']); // no exception
+    
+    Assert::isInStringArray('abcd', ['string']); // exception!
 
 ## Exceptions
 
