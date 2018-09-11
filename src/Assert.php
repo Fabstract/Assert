@@ -228,8 +228,6 @@ class Assert
     }
 
     /**
-     * Useful for checking if value can be used as index in arrays.
-     *
      * @param int|string $value
      * @param string $name
      * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsStringOrIntMethodTest
@@ -268,6 +266,38 @@ class Assert
             $given_type = static::getType($value);
             static::throwException($name, 'float', $given_type);
         }
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $name
+     * @see \Fabstract\Component\Assert\Test\PHPUnit\Assert\IsValidArrayIndexMethodTest
+     */
+    public static final function isValidArrayIndex($value, $name = null)
+    {
+        if (static::isValidArrayIndexPrivate($value) !== true) {
+            $given = self::getType($value);
+            static::throwException($name, 'valid array index', $given);
+        }
+    }
+
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    private static final function isValidArrayIndexPrivate($value)
+    {
+        $error_occurred = false;
+        set_error_handler(
+            function () use (&$error_occurred) {
+                $error_occurred = true;
+            }
+        );
+        $array = [];
+        $array[$value] = '';
+        restore_error_handler();
+
+        return $error_occurred === false;
     }
 
     /**
