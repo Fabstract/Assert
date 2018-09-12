@@ -704,8 +704,8 @@ However, if `$name` parameter is provided like this:
 
     function divideIntegers($dividend, $divisor) {
     
-        Assert::isInt($dividend, 'dividend');
-        Assert::isInt($divisor, 'divisor');
+        Assert::isInt($dividend, 'dividend'); // <- name is provided
+        Assert::isInt($divisor, 'divisor');   // <- name is provided
 		
         return intdiv($dividend, $divisor);
     }
@@ -767,7 +767,7 @@ throws assertion exceptions by separating them with by their classes.
     } catch (LoggerLibraryAssertionException $exception) {
         // do something related to logger library
     } catch (DateTimeLibraryAssertionException $exception) {
-        // do something related to date time library
+        // do something related to datetime library
     } catch (AssertionExceptionInterface $exception) {
         // none of above
     }
