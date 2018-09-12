@@ -95,11 +95,11 @@ time, thus debug a lot easier.
     - [isArrayOfString($value, [$name])](#isarrayofstringvalue-name--null)
     - [isSequentialArray($value, [$accept_empty], [$name])](#issequentialarrayvalue-accept_empty--true-name--null)
 - [Int operations](#int-operations)
-    - [isPositiveInt](#is-positive-int)
-    - [isNotNegativeInt](#is-not-negative-int)
+    - [isPositiveInt($value, [$name])](#ispositiveintvalue-name--null)
+    - [isNotNegativeInt($value, [$name])](#isnotnegativeintvalue-name--null)
 - [Number operations](#number-operations)
-    - [isPositiveNumber($value, $allow_string, $name)](#is-positive-number)
-    - [isNotNegativeNumber($value, $allow_string, $name)](#is-not-negative-number)
+    - [isPositiveNumber($value, [$allow_string], [$name])](#ispositivenumbervalue-allow_string--false-name--null)
+    - [isNotNegativeNumber($value, [$allow_string], [$name])](#isnotnegativenumbervalue-allow_string--false-name--null)
     
 ## General operations
 
@@ -609,6 +609,73 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     Assert::isSequentialArray([], true, 'variable name'); // no exception
     
     Assert::isSequentialArray(['a' => 0, 'b' => 1], true, 'variable name'); // exception!
+
+## Int operations
+
+### isPositiveInt($value, $name = null)
+
+Checks if given `$value` is a positive integer. Throws exception if fails.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isPositiveInt(1, 'variable name'); // no exception
+    
+    Assert::isPositiveInt(-1, 'variable name'); // exception!
+    Assert::isPositiveInt(INF, 'variable name'); // exception!
+
+### isNotNegativeInt($value, $name = null)
+
+Checks if given `$value` **is an integer**, but not a negative integer. Throws exception if fails.
+
+Note that this method will throw exception if `$value` is not an integer.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isNotNegativeInt(1, 'variable name'); // no exception
+    Assert::isNotNegativeInt(0, 'variable name'); // no exception
+    
+    Assert::isPositiveInt(-1, 'variable name'); // exception!
+    Assert::isPositiveInt(INF, 'variable name'); // exception!
+    Assert::isPositiveInt('string', 'variable name'); // exception!
+    
+
+## Number operations
+
+### isPositiveNumber($value, $allow_string = false, $name = null)
+
+Checks if given `$value` is a positive number. Throws exception if fails.
+
+Optional parameter `$allow_string` determines whether strings are treated as numbers.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isPositiveNumber(1, false, 'variable name'); // no exception
+    Assert::isPositiveNumber(1, true, 'variable name'); // no exception
+    Assert::isPositiveNumber('1', true, 'variable name'); // no exception
+    
+    Assert::isPositiveNumber('1', false, 'variable name'); // exception!
+    Assert::isPositiveNumber(-1, false, 'variable name'); // exception!
+    
+### isNotNegativeNumber($value, $allow_string = false, $name = null)
+
+Checks if given `$value` **is a number**, but not a negative number. Throws exception if fails.
+
+Note that this method will throw exception if `$value` is not a number.
+
+Optional parameter `$allow_string` determines whether strings are treated as numbers.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isNotNegativeNumber(1, false, 'variable name'); // no exception
+    Assert::isNotNegativeNumber(1, true, 'variable name'); // no exception
+    Assert::isNotNegativeNumber('1', true, 'variable name'); // no exception
+    Assert::isNotNegativeNumber(0, false, 'variable name'); // no exception
+    Assert::isNotNegativeNumber('0', true, 'variable name'); // no exception
+    
+    Assert::isNotNegativeNumber('0', false, 'variable name'); // exception!
+    Assert::isNotNegativeNumber('1', false, 'variable name'); // exception!
+    Assert::isNotNegativeNumber(-1, false, 'variable name'); // exception!
+    Assert::isNotNegativeNumber('string', false, 'variable name'); // exception!
 
 ## Exceptions
 
