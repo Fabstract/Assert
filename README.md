@@ -48,6 +48,8 @@ time, thus debug a lot easier.
 
 ## Installation
 
+**Note:** PHP 7.1 or higher is required.
+
 1. Install [composer](https://getcomposer.org/download/).
 2. Run `composer require fabstract/assert`.
 
@@ -88,10 +90,10 @@ time, thus debug a lot easier.
     - [isNotNullOrWhiteSpace($value, [$name])](#isnotnullorwhitespacevalue-name--null)
     - [isInStringArray($value, $allowed_string_list, [$name])](#isinstringarrayvalue-allowed_string_list-name--null)
 - [Array operations](#array-operations)
-    - [isNotEmptyArray($value, $name)](#is-not-empty-array)
-    - [isArrayOfType($value, $type, $name)](#is-array-of-type)
-    - [isArrayOfString($value, $name)](#is-array-of-string)
-    - [isSequentialArray($value, $accept_empty, $name)](#is-sequential-array)
+    - [isNotEmptyArray($value, [$name])](#isnotemptyarrayvalue-name--null)
+    - [isArrayOfType($value, $type, [$name])](#isarrayoftypevalue-type-name--null)
+    - [isArrayOfString($value, [$name])](#isarrayofstringvalue-name--null)
+    - [isSequentialArray($value, [$accept_empty], [$name])](#issequentialarrayvalue-accept_empty--true-name--null)
 - [Int operations](#int-operations)
     - [isPositiveInt](#is-positive-int)
     - [isNotNegativeInt](#is-not-negative-int)
@@ -479,6 +481,7 @@ Works with interfaces and child interfaces too.
     Assert::isChildOf('someinterface', 'someinterface', 'variable name'); // exception!
     
     
+
 ## String operations
 
 ### isNotEmptyString($value, $accept_blanks = false, $name = null)
@@ -554,6 +557,58 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     Assert::isInStringArray('', ['']); // no exception
     
     Assert::isInStringArray('abcd', ['string']); // exception!
+
+## Array operations
+
+### isNotEmptyArray($value, $name = null)
+
+Checks if given `$value` is not an empty array. Throws exception if fails.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isNotEmptyArray(['1'], 'variable name'); // no exception
+    
+    Assert::isNotEmptyArray([], 'variable name'); // exception!
+
+### isArrayOfType($value, $type, $name = null)
+
+Checks if given `$value` is an array of given `$type`. Throws exception if fails.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    class SomeClass() {}
+
+    Assert::isArrayOfType([new SomeClass()], 'someclass', 'variable name'); // no exception
+    Assert::isArrayOfType([], 'someclass', 'variable name'); // no exception
+    
+    Assert::isArrayOfType([new SomeClass(), 'string'], 'someclass', 'variable name'); // exception!
+
+### isArrayOfString($value, $name = null)
+
+Checks if given `$value` is an array of string. Throws exception if fails.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isArrayOfType([], 'variable name'); // no exception
+    Assert::isArrayOfType(['a', 'b', 'c'], 'variable name'); // no exception
+    
+    Assert::isArrayOfType(['string', null], 'someclass', 'variable name'); // exception!
+
+### isSequentialArray($value, $accept_empty = true, $name = null)
+
+Checks if given `$value` is a sequential array. Throws exception if fails.
+
+Sequential array is an array whose keys start from 0, and increments by 1.
+
+Optional parameter `$accept_empty` is used to decide whether to accept empty arrays or not.
+
+Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
+
+    Assert::isSequentialArray(['a', 'z', 99], false, 'variable name'); // no exception
+    Assert::isSequentialArray(['a', 'z', 99], true, 'variable name'); // no exception
+    Assert::isSequentialArray([], true, 'variable name'); // no exception
+    
+    Assert::isSequentialArray(['a' => 0, 'b' => 1], true, 'variable name'); // exception!
 
 ## Exceptions
 
