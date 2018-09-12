@@ -721,7 +721,7 @@ Then exception message will be more helpful:
 Another usage of exceptions is extending them. 
 
 By default, every failed assertion will cause `Assert::generateException()` method to be called. Note that this method
-is protected, and all methods that throw exception does it like this:
+is protected, and all methods that throw exception do it like this:
 
     static::throwException($name, $expected, $given);
     
