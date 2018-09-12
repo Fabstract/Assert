@@ -760,7 +760,7 @@ Now this will produce following:
     MyCustomAssertionException: Variable with name "divisor" is expected to be int, given string.
 
 You can comfortably create classes that extend Assert for your libraries, and use `try-catch` blocks to find which library
-throws assertion exceptions by separating them with by their classes.
+throws assertion exceptions by separating them by their classes.
 
     try {
         $app->run();
