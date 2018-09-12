@@ -100,7 +100,8 @@ time, thus debug a lot easier.
 - [Number operations](#number-operations)
     - [isPositiveNumber($value, [$allow_string], [$name])](#ispositivenumbervalue-allow_string--false-name--null)
     - [isNotNegativeNumber($value, [$allow_string], [$name])](#isnotnegativenumbervalue-allow_string--false-name--null)
-    
+
+
 ## General operations
 
 ### isObject($value, $name = null)
@@ -679,4 +680,96 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
 
 ## Exceptions
 
-[todo2](#TODO2)
+### Variable names
+
+The optional parameter `$name` at the end of every method is used for better exception messages. Consider following:
+
+    function divideIntegers($dividend, $divisor) {
+    
+        Assert::isInt($dividend);
+        Assert::isInt($divisor);
+		
+        return intdiv($dividend, $divisor);
+    }
+
+Now imagine running this function with following parameters:
+
+    divideIntegers(5, '2');
+
+This code, when executed, will produce the following:
+
+    Fabstract\Component\Assert\AssertionException: Variable is expected to be int, given string (no name was provided).
+    
+However, if `$name` parameter is provided like this:
+
+    function divideIntegers($dividend, $divisor) {
+    
+        Assert::isInt($dividend, 'dividend');
+        Assert::isInt($divisor, 'divisor');
+		
+        return intdiv($dividend, $divisor);
+    }
+    
+    divideIntegers(5, '2');
+    
+Then exception message will be more helpful: 
+
+    Fabstract\Component\Assert\AssertionException: Variable with name "divisor" is expected to be int, given string.
+    
+### Extending exceptions
+
+Another usage of exceptions is extending them. 
+
+By default, every failed assertion will cause `Assert::generateException()` method to be called. Note that this method
+is protected, and all methods that throw exception does it like this:
+
+    static::throwException($name, $expected, $given);
+    
+This means that if a custom Assert class is created by extending Fabstract's Assert class, it is possible to make all
+methods throw a custom exception, by overriding `generateException` method alone:
+
+    class MyCustomAssertionException extends \Exception implements AssertionExceptionInterface
+    {
+    }
+    
+    class MyCustomAssert extends \Fabstract\Component\Assert\Assert
+    {
+        protected static function generateException($name, $expected, $given)
+        {
+            $exception = parent::generateException($name, $expected, $given);
+            return new MyCustomAssertionException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
+        }
+    }
+
+    function divideIntegers($dividend, $divisor) {
+    
+        MyCustomAssert::isInt($dividend, 'dividend');
+        MyCustomAssert::isInt($divisor, 'divisor');
+		
+        return intdiv($dividend, $divisor);
+    }
+    
+    divideIntegers(5, '2');
+
+Now this will produce following:
+
+    MyCustomAssertionException: Variable with name "divisor" is expected to be int, given string.
+
+You can comfortably create classes that extend Assert for your libraries, and use `try-catch` blocks to find which library
+throws assertion exceptions by separating them with by their classes.
+
+    try {
+        $app->run();
+    } catch (LoggerLibraryAssertionException $exception) {
+        // do something related to logger library
+    } catch (DateTimeLibraryAssertionException $exception) {
+        // do something related to date time library
+    } catch (AssertionExceptionInterface $exception) {
+        // none of above
+    }
+
+    
