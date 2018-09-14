@@ -12,6 +12,11 @@
       "name": "Ahmet Turk",
       "email": "ahmetturk93@gmail.com",
       "homepage": "https://github.com/fabstract"
+    },
+    {
+      "name": "Necip Allef",
+      "email": "necipallef@gmail.com",
+      "homepage": "https://github.com/necipallef"
     }
   ],
   "autoload": {
