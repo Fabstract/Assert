@@ -110,9 +110,11 @@ Checks if given `$value` is object. Throws exception if fails.
  
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isObject(new stdClass(), 'variable name'); // no exception
     
     Assert::isObject(1, 'variable name'); // exception!
+```
     
 ### isNotNull($value, $name = null)
 
@@ -120,9 +122,11 @@ Checks if given `$value` is not null. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isNotNull(5, 'variable name'); // no exception
     
     Assert::isNotNull(null, 'variable name'); // exception!
+```
 
 ### isEqualTo($value, $excepted, $name = null)
 
@@ -132,11 +136,13 @@ This method is type safe, meaning that it will fail when `$value` is integer `1`
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isEqualTo(1, 1, 'variable name'); // no exception
     Assert::isEqualTo(null, null, 'variable name'); // no exception
     
     Assert::isEqualTo(1, 1.0, 'variable name'); // exception!
     Assert::isEqualTo(1, '1', 'variable name'); // exception!
+```
 
 ### isNotEqualTo($value, $expected, $name = null)
 
@@ -146,11 +152,13 @@ This method is type safe, meaning that it will **NOT** fail when `$value` is int
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isEqualTo(1, 1.0, 'variable name'); // no exception
     Assert::isEqualTo(1, '1', 'variable name'); // no exception
     
     Assert::isEqualTo(1, 1, 'variable name'); // exception!
     Assert::isEqualTo(null, null, 'variable name'); // exception!
+```
     
 ### isTypeExists($value, $name = null)
 
@@ -158,6 +166,7 @@ Checks if there is a class or interface named `$value`. Throws exception if fail
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     class SomeClass {}
     interface SomeInterface {}
     
@@ -165,6 +174,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     Assert::isTypeExists('someinterface', 'variable name'); // no exception
     
     Assert::isTypeExists('someclass2', 'variable name'); // exception!
+```
     
 ### isClassExists($value, $name = null)
 
@@ -172,13 +182,15 @@ Checks if there is a class named `$value`. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     class SomeClass {}
     interface SomeInterface {}
     
     Assert::isClassExists('someclass', 'variable name'); // no exception
     
     Assert::isClassExists('someinterface', 'variable name'); // exception!
-    Assert::isClassExists('someclass2', 'variable name'); // exception!    
+    Assert::isClassExists('someclass2', 'variable name'); // exception! 
+```   
     
 ### isInterfaceExists($value, $name = null)
 
@@ -186,12 +198,14 @@ Checks if there is an interface named `$value`. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     class SomeClass {}
     interface SomeInterface {}
     
     Assert::isInterfaceExists('someinterface', 'variable name'); // no exception
     
     Assert::isInterfaceExists('someclass', 'variable name'); // exception!
+```
 
 ### isMethodExists($object_or_class_name, $method, $name = null)
 
@@ -199,6 +213,7 @@ Checks if there is a method called `$method` inside `$object_or_class_name`. Thr
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     trait SomeTrait {
         public function somePublicTraitMethod {}
         private function somePrivateTraitMethod {}
@@ -223,9 +238,11 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     
     Assert::isMethodExists('someclass', 'someOtherPublicTraitMethod', 'variable name'); // exception!
     Assert::isMethodExists('someclass', 'someMethodThatDoesNotExist', 'variable name'); // exception!
+```
     
 Works with instances as well:
 
+```php
     $instance = new SomeClass();
 
     Assert::isMethodExists($instance, 'somePublicMethod', 'variable name'); // no exception
@@ -235,6 +252,7 @@ Works with instances as well:
     
     Assert::isMethodExists($instance, 'someOtherPublicTraitMethod', 'variable name'); // exception!
     Assert::isMethodExists($instance, 'someMethodThatDoesNotExist', 'variable name'); // exception!
+```
 
 ### isInArray($value, $allowed_value_list, $type_strict = false, $name = null)
 
@@ -242,6 +260,7 @@ Checks if given `$value` is in given array `$allowed_value_list`. Throws excepti
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     $allowed_value_list = ['1', '2', '3'];
     
     Assert::isInArray('1', $allowed_value_list, true, 'variable name'); // no exception
@@ -249,6 +268,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     Assert::isInArray(1, $allowed_value_list, false, 'variable name'); // no exception
     
     Assert::isInArray(1, $allowed_value_list, true, 'variable name'); // exception!
+```
 
 ## Type Checkers
 
@@ -261,6 +281,7 @@ exception for protected and private instance and static methods.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isCallable(function(){}, 'variable name'); // no exception
     Assert::isCallable('str_replace', 'variable_name'); // no exception
     
@@ -276,9 +297,11 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     
     Assert::isCallable(['someclass', 'someProtectedMethod'], 'variable name'); // exception!
     Assert::isCallable(['someclass', 'somePrivateMethod'], 'variable name'); // exception!
+```
     
 Works with instances as well:
     
+```php
     $instance = new SomeClass();
     
     Assert::isCallable([$instance, 'somePublicMethod'], 'variable name'); // no exception
@@ -286,6 +309,7 @@ Works with instances as well:
     
     Assert::isCallable([$instance, 'someProtectedMethod'], 'variable name'); // exception!
     Assert::isCallable([$instance, 'somePrivateMethod'], 'variable name'); // exception!
+```
 
 ### isString($value, $name = null)
 
@@ -293,11 +317,13 @@ Checks if given `$value` is string. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isString('some string', 'variable name'); // no exception
     Assert::isString('', 'variable name'); // no exception
     
     Assert::isString(new stdClass(), 'variable name'); // exception!
     Assert::isString(null, 'variable name'); // exception!
+```
 
 ### isBoolean($value, $name = null)
 
@@ -305,11 +331,13 @@ Checks if given `$value` is boolean, that is `true` or `false`. Throws exception
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isBoolean(true, 'variable name'); // no exception
     Assert::isBoolean(false, 'variable name'); // no exception
     
     Assert::isBoolean('true', 'variable name'); // exception!
     Assert::isBoolean(1, 'variable name'); // exception!
+```
 
 ### isInt($value, $name = null)
 
@@ -319,10 +347,12 @@ This method is type safe, meaning that it will fail when `$value` is string `'1'
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isInt(1, 'variable name'); // no exception
     Assert::isInt(0, 'variable name'); // no exception
     
     Assert::isInt('1', 'variable name'); // exception!
+```
 
 ### isStringOrInt($value, $name = null)
 
@@ -330,11 +360,13 @@ Checks if given `$value` is string or int. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isStringOrInt(0, 'variable name'); // no exception
     Assert::isStringOrInt('0', 'variable name'); // no exception
     
     Assert::isStringOrInt(null, 'variable name'); // exception!
     Assert::isStringOrInt([], 'variable name'); // exception!
+```
 
 ### isIntOrFloat($value, $name = null)
 
@@ -342,11 +374,13 @@ Checks if given `$value` is int or float. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isIntOrFloat(0, 'variable name'); // no exception
     Assert::isIntOrFloat(0.5, 'variable name'); // no exception
     
     Assert::isIntOrFloat('0.5', 'variable name'); // exception!
     Assert::isIntOrFloat('1', 'variable name'); // exception!
+```
     
 ### isFloat($value, $name = null)
 
@@ -354,9 +388,11 @@ Checks if given `$value` is float. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isFloat(0.5, 'variable name'); // no exception
     
     Assert::isFloat('0.5', 'variable name'); // exception!
+```
     
 ### isValidArrayIndex($value, $name = null)
 
@@ -367,6 +403,7 @@ to integer or string first.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isValidArrayIndex(1, 'variable name'); // no exception
     Assert::isValidArrayIndex('some string', 'variable name'); // no exception
     Assert::isValidArrayIndex(null, 'variable name'); // no exception
@@ -377,6 +414,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     
     Assert::isValidArrayIndex([], 'variable name'); // exception!
     Assert::isValidArrayIndex(new stdClass(), 'variable name'); // exception!
+```
 
 ### isArray($value, $name = null)
 
@@ -384,9 +422,11 @@ Checks if given `$value` is array. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info
 
+```php
     Assert::isArray([], 'variable name'); // no exception
     
     Assert::isArray(1, 'variable name'); // exception!
+```
     
 ### isNumeric($value, $name = null)
 
@@ -396,6 +436,7 @@ Valid values are integers, floats and numeric strings.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isNumeric(1, 'variable name'); // no exception
     Assert::isNumeric(1.5, 'variable name'); // no exception
     Assert::isNumeric('1.5', 'variable name'); // no exception
@@ -403,6 +444,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     
     Assert::isNumeric([], 'variable name'); // exception!
     Assert::isNumeric(true, 'variable name'); // exception!
+```
 
 ### isType($value, $type, $name = null)
 
@@ -414,11 +456,13 @@ Note that `null` values always throw.Traits also fails since traits are not type
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     class SomeClass {}
     
     Assert::isType(new SomeClass(), SomeClass::class, 'variable name'); // no exception
     
     Assert::isType(null, SomeClass::class, 'variable name'); // exception!
+```
     
 ### isInstanceOf($value, $type, $name = null)
 
@@ -430,11 +474,13 @@ Checks if given `$value` is instance of one of types from `$type_list`. Throws e
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     class SomeClass {}
     
     Assert::isOneOfTypes(new SomeClass(), [SomeClass:class]); // no exception
     
     Assert::isOneOfTypes(new stdClass(), [SomeClass:class]); // exception!
+```
 
 ### isImplements($value, $interface, $name = null)
 
@@ -442,6 +488,7 @@ Checks if given `$value` implements given `$interface`. Throws exception if fail
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     interface SomeInterface {}
     
     class SomeClass implements SomeInterface {}
@@ -451,6 +498,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     
     Assert::isImplements(new stdClass(), 'someinterface'); // exception!
     Assert::isImplements(new stdClass(), 'someclass'); // exception!
+```
 
 ### isChildOf($value, $parent, $name = null)
 
@@ -460,6 +508,7 @@ Note that `$value` and `$parent` are the same, this method still throws.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     class SomeClass {}
     class ChildClass extends SomeClass {}
     
@@ -468,9 +517,11 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     Assert::isChildOf(new ChildClass(), SomeClass::class, 'variable name'); // no exception
     
     Assert::isChildOf(new SomeClass(), SomeClass::class, 'variable name'); // exception!
+```
 
 Works with interfaces and child interfaces too.
     
+```php
     interface SomeInterface {}
     interface ChildInterface {}
     
@@ -480,6 +531,7 @@ Works with interfaces and child interfaces too.
     Assert::isChildOf('childinterface', 'someinterface', 'variable name'); // no exception
     
     Assert::isChildOf('someinterface', 'someinterface', 'variable name'); // exception!
+```
     
     
 
@@ -493,6 +545,7 @@ Optional parameter `$accept_blanks` determines whether blank strings are allowed
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isNotEmptyString('some string', false, 'variable name'); // no exception
     Assert::isNotEmptyString(' ', true, 'variable name'); // no exception
     
@@ -500,6 +553,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     Assert::isNotEmptyString('', true, 'variable name'); // exception!
     Assert::isNotEmptyString('', false, 'variable name'); // exception!
     Assert::isNotEmptyString(0, false, 'variable name'); // exception!
+```
 
 ### startsWith($value, $starts_with, $name = null)
 
@@ -511,6 +565,7 @@ Also note that this method is case-sensitive.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::startsWith('string', 's', 'variable name'); // no exception
     Assert::startsWith('string', 'str', 'variable name'); // no exception
     Assert::startsWith(' string', ' ', 'variable name'); // no exception
@@ -518,6 +573,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     
     Assert::startsWith('string', 'a', 'variable name'); // exception!
     Assert::startsWith('string', 'S', 'variable name'); // exception!
+```
 
 ### isRegexMatches($value, $regex_pattern, $name = null)
 
@@ -527,10 +583,12 @@ Note that if `$regex_pattern` is not a valid regex pattern, again exception will
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isRegexMatches('string', '/[w]+/', 'variable name'); // no exception
     
     Assert::isRegexMatches('string', '/[d]+/', 'variable name'); // exception!
     Assert::isRegexMatches('string', 'string', 'variable name'); // exception! (invalid regex pattern)
+```
 
 ### isRegexPattern($value, $name = null)
 
@@ -538,11 +596,13 @@ Checks if given `$value` is a valid regex pattern. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isRegexPattern('/regex/', 'variable name'); // no exception
     Assert::isRegexPattern('/\w/', 'variable name'); // no exception
     Assert::isRegexPattern('//', 'variable name'); // no exception
     
     Assert::isRegexPattern('string', 'variable name'); // exception!
+```
 
 ### isNotNullOrWhiteSpace($value, $name = null)
 
@@ -554,10 +614,12 @@ Checks if given `$value` is in `$allowed_string_list`. Throws exception if fails
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isInStringArray('string', ['abcd', 'string']); // no exception
     Assert::isInStringArray('', ['']); // no exception
     
     Assert::isInStringArray('abcd', ['string']); // exception!
+```
 
 ## Array operations
 
@@ -567,9 +629,11 @@ Checks if given `$value` is not an empty array. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isNotEmptyArray(['1'], 'variable name'); // no exception
     
     Assert::isNotEmptyArray([], 'variable name'); // exception!
+```
 
 ### isArrayOfType($value, $type, $name = null)
 
@@ -577,12 +641,14 @@ Checks if given `$value` is an array of given `$type`. Throws exception if fails
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     class SomeClass() {}
 
     Assert::isArrayOfType([new SomeClass()], 'someclass', 'variable name'); // no exception
     Assert::isArrayOfType([], 'someclass', 'variable name'); // no exception
     
     Assert::isArrayOfType([new SomeClass(), 'string'], 'someclass', 'variable name'); // exception!
+```
 
 ### isArrayOfString($value, $name = null)
 
@@ -590,10 +656,12 @@ Checks if given `$value` is an array of string. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isArrayOfType([], 'variable name'); // no exception
     Assert::isArrayOfType(['a', 'b', 'c'], 'variable name'); // no exception
     
     Assert::isArrayOfType(['string', null], 'someclass', 'variable name'); // exception!
+```
 
 ### isSequentialArray($value, $accept_empty = true, $name = null)
 
@@ -605,11 +673,13 @@ Optional parameter `$accept_empty` is used to decide whether to accept empty arr
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isSequentialArray(['a', 'z', 99], false, 'variable name'); // no exception
     Assert::isSequentialArray(['a', 'z', 99], true, 'variable name'); // no exception
     Assert::isSequentialArray([], true, 'variable name'); // no exception
     
     Assert::isSequentialArray(['a' => 0, 'b' => 1], true, 'variable name'); // exception!
+```
 
 ## Int operations
 
@@ -619,10 +689,12 @@ Checks if given `$value` is a positive integer. Throws exception if fails.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isPositiveInt(1, 'variable name'); // no exception
     
     Assert::isPositiveInt(-1, 'variable name'); // exception!
     Assert::isPositiveInt(INF, 'variable name'); // exception!
+```
 
 ### isNotNegativeInt($value, $name = null)
 
@@ -632,12 +704,14 @@ Note that this method will throw exception if `$value` is not an integer.
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isNotNegativeInt(1, 'variable name'); // no exception
     Assert::isNotNegativeInt(0, 'variable name'); // no exception
     
     Assert::isPositiveInt(-1, 'variable name'); // exception!
     Assert::isPositiveInt(INF, 'variable name'); // exception!
     Assert::isPositiveInt('string', 'variable name'); // exception!
+```
     
 
 ## Number operations
@@ -650,12 +724,14 @@ Optional parameter `$allow_string` determines whether strings are treated as num
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isPositiveNumber(1, false, 'variable name'); // no exception
     Assert::isPositiveNumber(1, true, 'variable name'); // no exception
     Assert::isPositiveNumber('1', true, 'variable name'); // no exception
     
     Assert::isPositiveNumber('1', false, 'variable name'); // exception!
     Assert::isPositiveNumber(-1, false, 'variable name'); // exception!
+```
     
 ### isNotNegativeNumber($value, $allow_string = false, $name = null)
 
@@ -667,6 +743,7 @@ Optional parameter `$allow_string` determines whether strings are treated as num
 
 Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions) for more info.
 
+```php
     Assert::isNotNegativeNumber(1, false, 'variable name'); // no exception
     Assert::isNotNegativeNumber(1, true, 'variable name'); // no exception
     Assert::isNotNegativeNumber('1', true, 'variable name'); // no exception
@@ -677,6 +754,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
     Assert::isNotNegativeNumber('1', false, 'variable name'); // exception!
     Assert::isNotNegativeNumber(-1, false, 'variable name'); // exception!
     Assert::isNotNegativeNumber('string', false, 'variable name'); // exception!
+```
 
 ## Exceptions
 
@@ -684,6 +762,7 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
 
 The optional parameter `$name` at the end of every method is used for better exception messages. Consider following:
 
+```php
     function divideIntegers($dividend, $divisor) {
     
         Assert::isInt($dividend);
@@ -691,10 +770,13 @@ The optional parameter `$name` at the end of every method is used for better exc
 		
         return intdiv($dividend, $divisor);
     }
+```
 
 Now imagine running this function with following parameters:
 
+```php
     divideIntegers(5, '2');
+```
 
 This code, when executed, will produce the following:
 
@@ -702,6 +784,7 @@ This code, when executed, will produce the following:
     
 However, if `$name` parameter is provided like this:
 
+```php
     function divideIntegers($dividend, $divisor) {
     
         Assert::isInt($dividend, 'dividend'); // <- name is provided
@@ -711,6 +794,7 @@ However, if `$name` parameter is provided like this:
     }
     
     divideIntegers(5, '2');
+```
     
 Then exception message will be more helpful: 
 
@@ -723,11 +807,14 @@ Another usage of exceptions is extending them.
 By default, every failed assertion will cause `Assert::generateException()` method to be called. Note that this method
 is protected, and all methods that throw exception do it like this:
 
+```php
     static::throwException($name, $expected, $given);
+```
     
 This means that if a custom Assert class is created by extending Fabstract's Assert class, it is possible to make all
 methods throw a custom exception, by overriding `generateException` method alone:
 
+```php
     class MyCustomAssertionException extends \Exception implements AssertionExceptionInterface
     {
     }
@@ -754,6 +841,7 @@ methods throw a custom exception, by overriding `generateException` method alone
     }
     
     divideIntegers(5, '2');
+```
 
 Now this will produce following:
 
@@ -762,6 +850,7 @@ Now this will produce following:
 You can comfortably create classes that extend Assert for your libraries, and use `try-catch` blocks to find which library
 throws assertion exceptions by separating them by their classes.
 
+```php
     try {
         $app->run();
     } catch (LoggerLibraryAssertionException $exception) {
@@ -771,5 +860,5 @@ throws assertion exceptions by separating them by their classes.
     } catch (AssertionExceptionInterface $exception) {
         // none of above
     }
-
+```
     
