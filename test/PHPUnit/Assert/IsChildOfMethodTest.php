@@ -9,7 +9,7 @@ use Fabstract\Component\Assert\Test\PHPUnit\ChildDummyInterfaceThatExtendsDummyI
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClass;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClassThatImplementsDummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyInterface;
-use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
+use Fabstract\Component\UnitTest\MethodTestBase;
 
 /**
  * Class IsChildOfMethodTest

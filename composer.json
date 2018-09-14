@@ -24,6 +24,6 @@
     "php": "^7.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.0"
+    "fabstract/unit-test": "^1.0.0"
   }
 }

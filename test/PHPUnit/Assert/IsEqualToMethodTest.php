@@ -5,7 +5,7 @@ namespace Fabstract\Component\Assert\Test\PHPUnit\Assert;
 use Fabstract\Component\Assert\Assert;
 use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClass;
-use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
+use Fabstract\Component\UnitTest\MethodTestBase;
 
 /**
  * Class IsEqualToMethodTest

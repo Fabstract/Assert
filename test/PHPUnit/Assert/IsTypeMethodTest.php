@@ -11,7 +11,7 @@ use Fabstract\Component\Assert\Test\PHPUnit\DummyClassThatImplementsDummyInterfa
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClassWithDummyTrait;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyTrait;
-use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
+use Fabstract\Component\UnitTest\MethodTestBase;
 
 class IsTypeMethodTest extends MethodTestBase
 {

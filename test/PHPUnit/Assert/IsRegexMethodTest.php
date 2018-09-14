@@ -3,7 +3,7 @@
 namespace Fabstract\Component\Assert\Test\PHPUnit\Assert;
 
 use Fabstract\Component\Assert\Assert;
-use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
+use Fabstract\Component\UnitTest\MethodTestBase;
 
 /**
  * Class IsRegexMethodTest

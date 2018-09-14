@@ -6,7 +6,7 @@ use Fabstract\Component\Assert\Assert;
 use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClassThatImplementsDummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyInterface;
-use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
+use Fabstract\Component\UnitTest\MethodTestBase;
 
 /**
  * Class IsImplementsMethodTest

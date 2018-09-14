@@ -7,7 +7,7 @@ use Fabstract\Component\Assert\AssertionException;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyClass;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyInterface;
 use Fabstract\Component\Assert\Test\PHPUnit\DummyTrait;
-use Fabstract\Component\Assert\Test\PHPUnit\MethodTestBase;
+use Fabstract\Component\UnitTest\MethodTestBase;
 
 class IsTypeExistsMethodTest extends MethodTestBase
 {
