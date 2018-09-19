@@ -15,22 +15,26 @@ more assertions fail.
 
 Imagine you write a function that adds two numbers and returns the result, like this:
 
+```php
     function add($x, $y){
         Assert::isNumeric($x); // throws exception if $x is not a number
         Assert::isNumeric($y); // throws exception if $y is not a number
         
         return $x + $y;
     }
+```
 
 Here you can just write some assertions to make sure your function gets valid parameters, or do not run at all otherwise.
 
 The main benefit of using this library is to get meaningful exception messages. Consider below:
 
+```php
     function addToArray($key, $value){
         Assert::isValidArrayIndex($key, 'key');
         
         $this->array[$key] = $value;
     }
+```
     
 Imagine `addToArray` function gets passed `new stdClass()` as its first parameter. Without assertion, PHP will generate
 following message:
