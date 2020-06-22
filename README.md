@@ -219,12 +219,12 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
 
 ```php
     trait SomeTrait {
-        public function somePublicTraitMethod {}
-        private function somePrivateTraitMethod {}
+        public function somePublicTraitMethod() {}
+        private function somePrivateTraitMethod() {}
     }
     
     trait SomeOtherTrait {
-        public function someOtherPublicTraitMethod {}
+        public function someOtherPublicTraitMethod() {}
     }
 
     class SomeClass {
@@ -481,9 +481,9 @@ Optional parameter `$name` is used for exceptions. See [exceptions](#exceptions)
 ```php
     class SomeClass {}
     
-    Assert::isOneOfTypes(new SomeClass(), [SomeClass:class]); // no exception
+    Assert::isOneOfTypes(new SomeClass(), [SomeClass::class], 'variable_name'); // no exception
     
-    Assert::isOneOfTypes(new stdClass(), [SomeClass:class]); // exception!
+    Assert::isOneOfTypes(new stdClass(), [SomeClass::class], 'variable_name'); // exception!
 ```
 
 ### isImplements($value, $interface, $name = null)
@@ -814,7 +814,7 @@ is protected, and all methods that throw exception do it like this:
 ```php
     static::throwException($name, $expected, $given);
 ```
-    
+
 This means that if a custom Assert class is created by extending Fabstract's Assert class, it is possible to make all
 methods throw a custom exception, by overriding `generateException` method alone:
 
